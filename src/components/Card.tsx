@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import "./styles/custom-scrollbar.css";
+import "../app/styles/custom-scrollbar.css";
 export default function Card({
   EMDprice,
   ReservePrice,
@@ -10,7 +10,7 @@ export default function Card({
 }) {
   return (
     <div className="relative w-[80%] h-[13em] rounded-[60px] p-[2px] bg-gradient-to-r from-blue-500 to-red-600 shadow-custom2">
-      <div className="relative w-full h-full rounded-[58px] overflow-hidden shadow-custom2">
+      <div className="relative w-full h-full rounded-[58px] overflow-hidden ">
         <Image
           src="/images/AirpodPro.png"
           alt="Airpod Pro"

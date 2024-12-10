@@ -53,6 +53,7 @@ const AppContent = () => {
       {/* Content */}
       <div className="relative z-20 w-full h-full overflow-y-auto custom-scrollbar">
         <div className="min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
+          <div className="absolute max-md:hidden">Hemlo</div>
           <TopBar />
           <Details ProductName={ProductName} BasePrice={BasePrice} />
           <Card ReservePrice={Reserveprice} EMDprice={EMDprice} />
