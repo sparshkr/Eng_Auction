@@ -23,7 +23,7 @@ export default function CircularProgressBar({
         width="100%"
         height="100%"
         viewBox={`0 0 ${size} ${size}`}
-        className="-rotate-90"
+        className="-rotate-90 rounded-none"
       >
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -61,7 +61,7 @@ export default function CircularProgressBar({
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
+          strokeLinecap="butt" // Changed from "round" to "butt" for sharp edges
           style={{
             transition: "stroke-dashoffset 0.35s",
           }}
@@ -70,7 +70,7 @@ export default function CircularProgressBar({
 
       {/* Time display */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="  text-[#3c0266] rotate-0 font-bold">{time}</span>
+        <span className="text-[#3c0266] rotate-0 font-bold">{time}</span>
       </div>
     </div>
   );

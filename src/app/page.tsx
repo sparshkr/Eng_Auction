@@ -30,7 +30,9 @@ export default function Home() {
 const AppContent = () => {
   const [avatarUrls, setAvatarUrls] = useState<string[]>([]);
   const ProductName = "Nike Jordans";
-  const BasePrice = 1000;
+  const BasePrice = 1000.0;
+  const EMDprice = 200.0;
+  const Reserveprice = 500.0;
 
   useEffect(() => {
     const newAvatarUrls = Array.from(
@@ -53,21 +55,39 @@ const AppContent = () => {
         <div className="min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
           <TopBar />
           <Details ProductName={ProductName} BasePrice={BasePrice} />
-          <Card />
+          <Card ReservePrice={Reserveprice} EMDprice={EMDprice} />
           <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50">
             <CircularProgressBar progress={80} />
           </div>
-          <div className="flex w-full justify-between mt-8">
-            <Input />
-            <div>Hint</div>
+
+          <div className="flex w-full justify-between mt-8 p-0 m-0 gap-2">
+            <div className="relative -left-10 mr-0">
+              <Input />
+            </div>
+
+            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom">
+              {/* Button content */}
+
+              <div className="text-[#C0B5FF] text-[10px] relative top-1">
+                HINT
+              </div>
+              <Image
+                src={"/images/Bulb.png"}
+                alt="png"
+                height={20}
+                width={20}
+                className="relative bottom-0"
+              />
+            </button>
           </div>
+
           <section className="mt-2 flex flex-col gap-2 mb-2 w-full">
             <h2 className="text-sm text-white">Bidders</h2>
             <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
               {avatarUrls.map((url, index) => (
                 <Image
                   key={index}
-                  className="inline-block rounded-full w-[30px] h-[30px]"
+                  className="inline-block rounded-full w-[20px] h-[20px]"
                   src={url}
                   alt={`Avatar ${index + 1}`}
                   width={30}
