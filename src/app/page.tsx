@@ -52,7 +52,7 @@ const AppContent = () => {
       <div className="absolute inset-0 bg-[url('/images/download.png')] bg-center bg-cover opacity-30 z-10"></div>
 
       {/* Content */}
-      <div className="relative z-20 w-full h-full overflow-y-auto custom-scrollbar">
+      <div className="relative z-20 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar">
         <div className="relative min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
           {/* <div className="absolute mu:hidden">Hemlo</div> */}
           <TopBar />
@@ -74,7 +74,7 @@ const AppContent = () => {
               <Input />
             </div>
 
-            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 mu:h-7 mu:top-[1rem] mu:gap-[5px] mu:pl-4">
+            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 mu:h-7 mu:top-[1rem] mu:gap-[5px] mu:pl-4">
               {/* Button content */}
 
               <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">
@@ -106,7 +106,9 @@ const AppContent = () => {
             </div>
           </section>
           <NavBar />
-          <div className="h-12 hidden not-md:max-h-816:block md:hidden"></div>
+          <div className="h-12 hidden not-md:max-h-816:block md:hidden">
+            Hemlo
+          </div>
         </div>
       </div>
     </div>
