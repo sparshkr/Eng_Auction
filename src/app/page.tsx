@@ -70,11 +70,11 @@ const AppContent = () => {
           </div>
 
           <div className="mu:mt-[3.8rem] flex w-full justify-between mt-8 p-0 m-0 gap-2">
-            <div className="relative -left-10  mr-0">
+            <div className="relative -left-10 ms:-left-11  mr-0">
               <Input />
             </div>
 
-            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4">
+            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4 msx:pl-5">
               {/* Button content */}
 
               <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">

@@ -8,10 +8,10 @@ export default function Topbar() {
           alt="PLAY"
           width={15}
           height={15}
-          className="mu:w-8 mu:h-8"
+          className="mu:w-6 mu:h-6"
         />
 
-        <div className="text-[10px] mu:text-[18px] mu:font-[500]">5,999</div>
+        <div className="text-[10px] mu:text-[13px] mu:font-[500]">5,999</div>
       </button>
 
       <button className="bg-[#B57FEC] w-7 h-7 mu:w-10 mu:h-10 flex flex-col justify-evenly items-center rounded-lg top-2 bg-opacity-50">
