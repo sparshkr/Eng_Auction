@@ -74,7 +74,7 @@ const AppContent = () => {
             />
           </div>
 
-          <div className="mu:mt-[4.5rem] flex w-full justify-between mt-10 p-0 m-0 gap-2">
+          <div className="mu:mt-[4.2rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
             <div className="relative -left-10 ms:-left-11  mr-0">
               <Input />
             </div>
