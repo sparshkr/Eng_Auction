@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function InputComponent() {
   return (
-    <div className="relative w-[110%]   mu:w-[145%] ms:w-[135%] max-w-[600px] h-[42px] m-0 p-0 mu:h-[3.6rem]">
+    <div className="relative w-[110%]   mu:w-[140%] ms:w-[130%] max-w-[600px] h-[42px] m-0 p-0 mu:h-[3.6rem]">
       <input
         type="text"
         placeholder="Enter Your Highest Bid..."
