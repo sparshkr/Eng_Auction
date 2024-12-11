@@ -21,15 +21,15 @@ export default function Card({
         />
       </div>
       <div className="absolute left-3 -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[13px]">
-        <div className="absolute left-[30px] py-1 bottom-[229px] inline-block w-28 text-center bg-[#c8a7ea] bg-opacity-60 font-bold px-2 text-[10px] mu:left-[3.5rem] mu:bottom-[19.2rem] rounded-[7px] mu:text-[12px] mu:px-3 mu:w-[9rem] backdrop-blur-none">
+        <div className="absolute left-[30px] py-1 bottom-[14rem] inline-block w-28 text-center bg-[#c8a7ea] bg-opacity-60 font-bold px-2 text-[10px] mu:left-[3.5rem] mu:bottom-[19.2rem] rounded-[7px] mu:text-[12px] mu:px-3 mu:w-[9rem] backdrop-blur-none ">
           {AuctionName}
         </div>
-        <div className="relative flex flex-col items-center justify-center mu:left-[3px] mu:top-[15px] mu:text-[15px]">
+        <div className="relative flex flex-col items-center justify-center mu:left-[3px] mu:top-[15px] mu:text-[15px] md:right-1">
           <div className="-mb-1 ">EMD Paid</div>
           <div>${EMDprice.toString()}.00</div>
         </div>
       </div>
-      <div className="absolute -right-1 -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-24 mu:top-[13px]">
+      <div className="absolute  -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-24 mu:top-[13px] md:-right-2">
         <div className="-mb-1">Reserve Price</div>
         <div>${ReservePrice.toString()}.00</div>
       </div>
