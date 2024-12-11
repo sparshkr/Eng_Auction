@@ -11,6 +11,8 @@ export default {
       screens: {
         'xs': '350px',
         mu: { max: '768px' },
+        ms: { max: '400px' },
+        'max-h-816': { raw: '(max-height: 816px)' },
       },
       colors: {
         background: "var(--background)",

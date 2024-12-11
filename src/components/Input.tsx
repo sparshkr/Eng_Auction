@@ -4,7 +4,7 @@ import React from "react";
 
 export default function InputComponent() {
   return (
-    <div className="relative w-[120%] mu:w-[140%] max-w-[600px] h-[42px] m-0 p-0 mu:h-[3.6rem]">
+    <div className="relative w-[120%] ms:w-[130%] mu:w-[140%] max-w-[600px] h-[42px] m-0 p-0 mu:h-[3.6rem]">
       <input
         type="text"
         placeholder="Enter Your Highest Bid..."

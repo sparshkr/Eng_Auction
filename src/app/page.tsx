@@ -106,6 +106,7 @@ const AppContent = () => {
             </div>
           </section>
           <NavBar />
+          <div className="h-12 hidden max-h-816:block">Hemlo</div>
         </div>
       </div>
     </div>
