@@ -10,17 +10,18 @@ import TopBar from "@/components/TopBar";
 import Details from "@/components/Details";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import "./styles/custom-scrollbar.css";
+import "@fontsource/manrope";
 
 export default function Home() {
   return (
     // <CircularProgressBar progress={70}/>
     <div>
       <div className="relative md:hidden">
-        <div className="h-screen w-screen">
+        <div className="h-screen w-screen font-manrope">
           <AppContent />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:block font-manrope">
         <PhoneFrame AppContent={<AppContent />} />
       </div>
     </div>
@@ -34,6 +35,7 @@ const AppContent = () => {
   const BasePrice = 1000.0;
   const EMDprice = 200.0;
   const Reserveprice = 500.0;
+  const currentHighest = 999.98;
 
   useEffect(() => {
     const newAvatarUrls = Array.from(
@@ -65,11 +67,14 @@ const AppContent = () => {
             EMDprice={EMDprice}
             AuctionName={AuctionName}
           />
-          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50 mu:top-[24rem] ">
-            <CircularProgressBar progress={59} />
+          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50 mu:top-[24rem] flex flex-col">
+            <CircularProgressBar
+              currentHighest={currentHighest}
+              progress={59}
+            />
           </div>
 
-          <div className="mu:mt-[3.8rem] flex w-full justify-between mt-8 p-0 m-0 gap-2">
+          <div className="mu:mt-[4.5rem] flex w-full justify-between mt-10 p-0 m-0 gap-2">
             <div className="relative -left-10 ms:-left-11  mr-0">
               <Input />
             </div>
