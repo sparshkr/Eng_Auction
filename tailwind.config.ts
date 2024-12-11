@@ -10,6 +10,7 @@ export default {
     extend: {
       screens: {
         'xs': '350px',
+        mu: { max: '768px' },
       },
       colors: {
         background: "var(--background)",

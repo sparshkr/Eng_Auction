@@ -18,7 +18,7 @@ export default function CircularProgressBar({
   const gradientId = `progressGradient-${React.useId()}`;
 
   return (
-    <div className="relative w-20 h-20">
+    <div className="relative w-20 h-20 mu:w-32 mu:h-[100px]">
       <svg
         width="100%"
         height="100%"
@@ -70,7 +70,9 @@ export default function CircularProgressBar({
 
       {/* Time display */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-[#3c0266] rotate-0 font-bold">{time}</span>
+        <span className="text-[#3c0266] rotate-0 font-bold text-[13px] mu:text-[14px]">
+          {time}
+        </span>
       </div>
     </div>
   );

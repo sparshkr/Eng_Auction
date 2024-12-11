@@ -29,6 +29,7 @@ export default function Home() {
 
 const AppContent = () => {
   const [avatarUrls, setAvatarUrls] = useState<string[]>([]);
+  const AuctionName = "English Auction";
   const ProductName = "Nike Jordans";
   const BasePrice = 1000.0;
   const EMDprice = 200.0;
@@ -52,24 +53,31 @@ const AppContent = () => {
 
       {/* Content */}
       <div className="relative z-20 w-full h-full overflow-y-auto custom-scrollbar">
-        <div className="min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
-          <div className="absolute max-md:hidden">Hemlo</div>
+        <div className="relative min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
+          {/* <div className="absolute mu:hidden">Hemlo</div> */}
           <TopBar />
-          <Details ProductName={ProductName} BasePrice={BasePrice} />
-          <Card ReservePrice={Reserveprice} EMDprice={EMDprice} />
-          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50">
-            <CircularProgressBar progress={80} />
+          <div className="w-full mu:mt-4 px-2 mu:px-5">
+            <Details ProductName={ProductName} BasePrice={BasePrice} />
+          </div>
+          {/* <div className="absolute top-24">{AuctionName}</div> */}
+          <Card
+            ReservePrice={Reserveprice}
+            EMDprice={EMDprice}
+            AuctionName={AuctionName}
+          />
+          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50 mu:top-[24rem] ">
+            <CircularProgressBar progress={59} />
           </div>
 
-          <div className="flex w-full justify-between mt-8 p-0 m-0 gap-2">
-            <div className="relative -left-10 mr-0">
+          <div className="mu:mt-[3.8rem] flex w-full justify-between mt-8 p-0 m-0 gap-2">
+            <div className="relative -left-10  mr-0">
               <Input />
             </div>
 
-            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom">
+            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 mu:h-7 mu:top-[1rem] mu:gap-[5px] mu:pl-4">
               {/* Button content */}
 
-              <div className="text-[#C0B5FF] text-[10px] relative top-1">
+              <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">
                 HINT
               </div>
               <Image
@@ -77,18 +85,18 @@ const AppContent = () => {
                 alt="png"
                 height={20}
                 width={20}
-                className="relative bottom-0"
+                className="relative bottom-0 mu:bottom-2 mu:w-8"
               />
             </button>
           </div>
 
-          <section className="mt-2 flex flex-col gap-2 mb-2 w-full">
-            <h2 className="text-sm text-white">Bidders</h2>
+          <section className="mt-2 flex flex-col gap-2 mb-2 w-full px-3 mu:px-5">
+            <h2 className="text-sm text-white mu:text-[15px]">Bidders</h2>
             <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
               {avatarUrls.map((url, index) => (
                 <Image
                   key={index}
-                  className="inline-block rounded-full w-[20px] h-[20px]"
+                  className="inline-block rounded-full w-[20px] h-[20px] mu:w-[25px] mu:h-[25px]"
                   src={url}
                   alt={`Avatar ${index + 1}`}
                   width={30}
