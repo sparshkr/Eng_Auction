@@ -32,7 +32,7 @@ export default function Card({
         <div className="-mb-1 ">EMD Paid</div>
         <div>${EMDprice.toString()}.00</div>
       </div>
-      <div className="absolute  -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-24 mu:top-[-1.6rem] md:-right-2">
+      <div className="absolute  -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-24 mu:top-[-1.7rem] md:-right-2">
         <div className="-mb-1">Reserve Price</div>
         <div>${ReservePrice.toString()}.00</div>
       </div>

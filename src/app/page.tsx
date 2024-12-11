@@ -56,7 +56,7 @@ const AppContent = () => {
         <div className="relative min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
           {/* <div className="absolute mu:hidden">Hemlo</div> */}
           <TopBar />
-          <div className="w-full mu:mt-4 px-2 mu:px-5">
+          <div className="w-full mu:mt-4 px-2 mu:px-5 ms:px-3 msx:px-2 ">
             <Details ProductName={ProductName} BasePrice={BasePrice} />
           </div>
           {/* <div className="absolute top-24">{AuctionName}</div> */}
@@ -74,7 +74,7 @@ const AppContent = () => {
               <Input />
             </div>
 
-            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 mu:h-7 mu:top-[1rem] mu:gap-[5px] mu:pl-4">
+            <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4">
               {/* Button content */}
 
               <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">
