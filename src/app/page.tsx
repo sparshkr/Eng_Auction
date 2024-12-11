@@ -30,7 +30,7 @@ export default function Home() {
 const AppContent = () => {
   const [avatarUrls, setAvatarUrls] = useState<string[]>([]);
   const AuctionName = "English Auction";
-  const ProductName = "Nike Jordans";
+  const ProductName = "AirpodsPro";
   const BasePrice = 1000.0;
   const EMDprice = 200.0;
   const Reserveprice = 500.0;
@@ -106,9 +106,7 @@ const AppContent = () => {
             </div>
           </section>
           <NavBar />
-          <div className="h-12 hidden not-md:max-h-816:block md:hidden">
-            Hemlo
-          </div>
+          <div className="h-12 hidden not-md:max-h-816:block md:hidden"></div>
         </div>
       </div>
     </div>
