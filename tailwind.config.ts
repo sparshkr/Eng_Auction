@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      backdropBlur: {
+        xs: '0.9px',
+      },
       screens: {
         'xs': '350px',
         mu: { max: '768px' },

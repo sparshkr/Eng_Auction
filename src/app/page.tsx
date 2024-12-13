@@ -95,8 +95,8 @@ const AppContent = () => {
             </button>
           </div>
 
-          <section className="mt-2 flex flex-col gap-2 mb-2 w-full px-3 mu:px-5">
-            <h2 className="text-sm text-white mu:text-[15px]">Bidders</h2>
+          <section className="-mt-1 flex flex-col gap-2 mb-2 w-full pl-2 pr-0 mu:px-5">
+            <h2 className="text-xs text-white mu:text-[15px]">Bidders</h2>
             <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
               {avatarUrls.map((url, index) => (
                 <Image

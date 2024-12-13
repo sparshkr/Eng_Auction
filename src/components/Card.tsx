@@ -23,7 +23,7 @@ export default function Card({
       </div>
 
       <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-        <div className="py-1 px-3 bg-[#c8a7ea] bg-opacity-60 font-bold text-[10px] mu:text-[12px] rounded-[7px] whitespace-nowrap backdrop-blur-sm">
+        <div className="py-1 px-3 bg-[#c8a7ea] bg-opacity-60 font-bold text-[10px] mu:text-[12px] rounded-[7px] whitespace-nowrap backdrop-blur-xs">
           {AuctionName}
         </div>
       </div>
