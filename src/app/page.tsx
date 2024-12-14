@@ -67,7 +67,7 @@ const AppContent = () => {
             EMDprice={EMDprice}
             AuctionName={AuctionName}
           />
-          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-50 mu:top-[24rem] flex flex-col">
+          <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 mu:top-[24rem] flex flex-col">
             <CircularProgressBar
               currentHighest={currentHighest}
               progress={59}

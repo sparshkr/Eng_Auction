@@ -15,7 +15,7 @@ export default function InputComponent() {
         <div className="w-full h-full bg-[#0C0D29] rounded-t-[28px] rounded-b-[58px]"></div>
       </div>
       <button
-        className="absolute right-1 mu:top-6 mu:right-3 top-[18px] transform -translate-y-1/2 text-4xl text-white z-50"
+        className="absolute right-1 mu:top-6 mu:right-3 top-[18px] transform -translate-y-1/2 text-4xl text-white z-40"
         onClick={() => {
           console.log("clicked");
         }}
