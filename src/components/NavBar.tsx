@@ -31,7 +31,7 @@ export default function NavBar(): JSX.Element {
   ];
 
   return (
-    <div className="sticky bottom-16 md:w-[105%] w-[90%] border-2 py-2 px-2 m-0 rounded-[54.88px] h-[94.97px] z-40 bg-[#b7b0b0] bg-opacity-10 text-white border-1 border-[#DFDADA17]  md:bottom-5 md:left-2 md:h-[55px] mu:h-[72px] mu:pb-3 pb-1 mu:fixed ms:bottom-3 mu:bottom-4">
+    <div className="sticky bottom-16 md:w-[105%] w-[90%] border-2 py-2 px-2 m-0 rounded-[54.88px] h-[94.97px] z-40 bg-[#b7b0b0] bg-opacity-50 text-white border-1 border-[#DFDADA17]  md:bottom-5 md:left-2 md:h-[55px] mu:h-[72px] mu:pb-3 pb-1 mu:fixed ms:bottom-3 mu:bottom-4">
       <div className="h-full w-full m-0  flex justify-around items-center">
         {navItems.map((navItem, index) => (
           <button

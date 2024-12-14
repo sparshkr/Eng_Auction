@@ -32,17 +32,20 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="absolute inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
       <div
-        className="fixed inset-0 mu:bg-black mu:bg-opacity-50 mu:backdrop-blur-xs"
+        className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-xs"
         onClick={handleBackdropClick}
       ></div>
+      {/* Modal Content */}
       <div
-        className="relative z-50 max-w-md mu:w-[80%] mu:h-[45%] shadow-[0_0_50px_rgba(255,255,0,0.2)] max-h-[90vh]"
+        className="relative z-50 w-full max-w-[90%] max-h-[90%] p-2 md:p-4 md:-top-16 mu:-top-20"
         onClick={(e) => e.stopPropagation()} // Prevent clicks from propagating to the backdrop
       >
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-blue-500 via-transparent to-pink-500 p-[1px]">
-          <div className="relative bg-[#0C0D29] rounded-lg p-6 h-full overflow-y-auto">
+        <div className="rounded-lg bg-gradient-to-tr from-blue-500 via-transparent to-pink-500 p-[1px] shadow-[5px_5px_50px_rgba(255,255,0,0.1),_-5px_5px_50px_rgba(255,255,0,0.1),_5px_-5px_50px_rgba(255,165,0,0.1),_0px_50px_100px_rgba(255,255,0,0.2)]">
+          <div className="relative bg-[#0C0D29] rounded-lg p-4 md:p-6 overflow-y-auto max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-8rem)] msx:max-h-[calc(100vh-2rem)]">
+            {/* Close Button */}
             <button
               onClick={onClose}
               className="absolute top-2 right-2 text-white hover:text-gray-200 rounded-full bg-[#787777] bg-opacity-60 h-6 w-6 flex items-center justify-center"
@@ -62,6 +65,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                 />
               </svg>
             </button>
+            {/* Modal Content */}
             {children}
           </div>
         </div>

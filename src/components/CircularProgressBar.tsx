@@ -14,7 +14,27 @@ export default function CircularProgressBar({
   const size = 30;
   const strokeWidth = 5;
   const center = size / 2;
-  const radius = 10;
+
+  const [radius, setRadius] = React.useState(10); // Default radius
+
+  React.useEffect(() => {
+    // Function to determine radius based on breakpoints
+    const getRadius = () => {
+      if (window.matchMedia("(max-width: 400px)").matches) return 9.5; // 'msx' breakpoint
+      if (window.matchMedia("(max-width: 768px)").matches) return 11; // 'mu' breakpoint
+      return 10; // Default radius
+    };
+
+    setRadius(getRadius()); // Set initial radius
+
+    const handleResize = () => setRadius(getRadius());
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
   const gradientId = `progressGradient-${React.useId()}`;
@@ -50,7 +70,7 @@ export default function CircularProgressBar({
             cy={center}
             r={radius + 0.2}
             fill="none"
-            stroke="#c9c8c7" //Grey
+            stroke="#c9c8c7" // Grey
             strokeWidth={strokeWidth + 1}
           />
 
@@ -73,14 +93,14 @@ export default function CircularProgressBar({
 
         {/* Time display */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#3c0266] rotate-0 font-bold text-[13px] mu:text-[14px]">
+          <span className="text-[#3c0266] rotate-0 font-bold text-[13px] mu:text-[16px] ms:text-[14px]">
             {time}
           </span>
         </div>
       </div>
 
       {/* Current Highest display */}
-      <div className="-mt-1 text-white font-manrope text-[13px] mu:text-[14px]">
+      <div className="-mt-1 text-white font-manrope text-[13px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1">
         ${currentHighest.toFixed(2)}
       </div>
     </div>
