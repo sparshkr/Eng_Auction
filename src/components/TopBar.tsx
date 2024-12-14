@@ -76,7 +76,7 @@ export default function Topbar() {
         <div className="h-[100%] w-full  flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-4 mu:text-md">Log In</h2>
 
-          <div className="flex flex-col gap-3 mu:text-sm">
+          <div className="flex flex-col gap-3 mu:text-md ms:text-sm">
             <Custombutton
               onClick={() => {
                 console.log("Clicked");
