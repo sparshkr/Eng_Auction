@@ -15,13 +15,13 @@ import "@fontsource/manrope";
 export default function Home() {
   return (
     // <CircularProgressBar progress={70}/>
-    <div>
-      <div className="relative md:hidden">
+    <div className="font-[500]">
+      <div className="relative md:hidden ">
         <div className="h-screen w-screen font-manrope">
           <AppContent />
         </div>
       </div>
-      <div className="hidden md:block font-manrope">
+      <div className="hidden md:block font-manrope ">
         <PhoneFrame AppContent={<AppContent />} />
       </div>
     </div>
