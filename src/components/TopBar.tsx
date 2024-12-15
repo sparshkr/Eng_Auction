@@ -9,6 +9,7 @@ export default function Topbar({
   setProfileSection: Dispatch<SetStateAction<boolean>>;
 }) {
   const user = "Bhavya";
+  // const user = undefined;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {

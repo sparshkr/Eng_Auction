@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
-interface ModalProps {
+interface Modal2Props {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal2: React.FC<Modal2Props> = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     if (isOpen) {
       // Disable scrolling
@@ -38,12 +38,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-xs"
         onClick={handleBackdropClick}
       ></div>
-      {/* Modal Content */}
+      {/* Modal2 Content */}
       <div
-        className="relative z-50 w-full max-w-[100%] max-h-[90%] p-2 md:p-4 md:-top-16 mu:-top-20"
+        className="relative z-50 w-[100vw] max-w-[95vw] max-h-[90%] pl-2 pr-2 md:-top-16 mu:-top-20 items-center"
         onClick={(e) => e.stopPropagation()} // Prevent clicks from propagating to the backdrop
       >
-        <div className="rounded-lg bg-gradient-to-tr from-blue-500 via-transparent to-pink-500 p-[1px] shadow-[5px_5px_50px_rgba(255,255,0,0.1),_-5px_5px_50px_rgba(255,255,0,0.1),_5px_-5px_50px_rgba(255,165,0,0.1),_0px_50px_100px_rgba(255,255,0,0.2)]">
+        <div className="w-[100%] rounded-lg bg-gradient-to-tr from-blue-500 via-transparent to-pink-500 p-[1px] shadow-[5px_5px_50px_rgba(255,255,0,0.1),_-5px_5px_50px_rgba(255,255,0,0.1),_5px_-5px_50px_rgba(255,165,0,0.1),_0px_50px_100px_rgba(255,255,0,0.2)]">
           <div className="relative bg-[#0C0D29] rounded-lg p-4 md:p-6 overflow-y-auto max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-8rem)] msx:max-h-[calc(100vh-2rem)]">
             {/* Close Button */}
             <button
@@ -65,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                 />
               </svg>
             </button>
-            {/* Modal Content */}
+            {/* Modal2 Content */}
             {children}
           </div>
         </div>
@@ -74,4 +74,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default Modal;
+export default Modal2;
