@@ -2,19 +2,19 @@
 
 import React from "react";
 
-interface CircularProgressBarProps {
+interface CircularProgressBarClosedBidProps {
   progress: number;
   time?: string;
   currentHighest: number;
   radius?: number;
 }
 
-export default function CircularProgressBar({
+export default function CircularProgressBarClosedBid({
   progress,
   time = "10:01:59",
   currentHighest,
   radius: propRadius,
-}: CircularProgressBarProps) {
+}: CircularProgressBarClosedBidProps) {
   const size = 30;
   const strokeWidth = 5;
   const center = size / 2;
@@ -99,14 +99,14 @@ export default function CircularProgressBar({
 
         {/* Time display */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#3c0266] rotate-0 font-bold text-[13px] mu:text-[16px] ms:text-[14px]">
+          <span className="text-[#3c0266] rotate-0 font-bold text-[11px] mu:text-[16px] ms:text-[14px]">
             {time}
           </span>
         </div>
       </div>
 
       {/* Current Highest display */}
-      <div className="-mt-1 text-white font-manrope text-[13px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1">
+      <div className="-mt-1 text-white font-manrope text-[10px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1">
         ${currentHighest.toFixed(2)}
       </div>
     </div>

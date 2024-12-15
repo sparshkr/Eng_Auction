@@ -19,6 +19,8 @@ import CustomDiv from "@/components/CustomDiv";
 import Modal2 from "@/components/Modal2";
 import { div } from "framer-motion/client";
 import BidList from "@/components/BidList";
+import CardClosedBid from "@/components/CardClosedBid";
+import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
 
 export default function Home() {
   return (
@@ -45,6 +47,7 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const AuctionType: string = "closedbid";
   const AuctionType: string = "openbid";
 
   const closeModal = () => setIsModalOpen(false);
@@ -86,27 +89,35 @@ const AppContent = () => {
                     <CircularProgressBar
                       currentHighest={currentHighest}
                       progress={59}
+                      radius={9}
                     />
                   </div>
                 </>
               )}
-              {AuctionType == "openbid" && (
-                // <div className="flex border w-full h-full">
-                //   <div className="">
-                //     <Card
-                //       ReservePrice={Reserveprice}
-                //       EMDprice={EMDprice}
-                //       AuctionName={AuctionName}
-                //     />
-                //   </div>
-                //   <BidList />
-                // </div>
-                <Card
-                  ReservePrice={Reserveprice}
-                  EMDprice={EMDprice}
-                  AuctionName={AuctionName}
-                />
-              )}
+              <div className="relative">
+                {AuctionType === "openbid" && (
+                  <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
+                    <div className="relative h-[13rem] w-[14rem] left-1">
+                      <CardClosedBid
+                        ReservePrice={Reserveprice}
+                        EMDprice={EMDprice}
+                        AuctionName={AuctionName}
+                      />
+                      <div className="absolute bottom-0 left-[52%] transform -translate-x-1/2 translate-y-1/2 z-40">
+                        <CircularProgressBarClosedBid
+                          currentHighest={currentHighest}
+                          progress={59}
+                          radius={8}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="relative top-4 right-[5.5rem]">
+                      <BidList />
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <div className="mu:mt-[4.2rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
                 <div className="relative -left-10 ms:-left-11  mr-0">

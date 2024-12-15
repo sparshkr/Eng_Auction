@@ -7,7 +7,7 @@ const BidList = () => {
       {bids.map((bid, index) => (
         <div
           key={index}
-          className={`flex items-center justify-between text-[0.55rem] relative ${
+          className={`flex items-center justify-between text-[0.6rem] relative ${
             index === 0 ? "text-green-600 font-bold" : "text-white font-normal"
           }`}
         >
