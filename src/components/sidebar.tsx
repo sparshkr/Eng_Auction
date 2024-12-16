@@ -84,9 +84,9 @@ export function Sidebar({
             </div>
 
             <nav className="flex flex-col justify-between flex-grow p-4">
-              <div className="flex flex-col gap-6 text-white">
+              <div className="flex flex-col gap-6 mu:gap-8 pl-4 font-[600] text-white">
                 <button
-                  className="text-left text-md font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded"
+                  className="text-left text-md mu:text-xl font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded"
                   onClick={() => {
                     setProfileButtonLabel((currentLabel) =>
                       currentLabel === "My Profile"
@@ -100,7 +100,7 @@ export function Sidebar({
                   {profileButtonLabel}
                 </button>
                 <button
-                  className="text-left text-md font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded"
+                  className="text-left text-md mu:text-xl font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded"
                   onClick={() => {
                     onClose();
                     setIsModalOpen(true);
@@ -108,7 +108,7 @@ export function Sidebar({
                 >
                   Buy PLAYs
                 </button>
-                <button className="text-left text-md font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded">
+                <button className="text-left text-md mu:text-xl font-medium hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded">
                   PLAY History
                 </button>
               </div>
@@ -116,9 +116,9 @@ export function Sidebar({
               <div
                 className={`relative ${
                   profileButtonLabel === "My Profile"
-                    ? "md:bottom-32"
-                    : "md:bottom-10"
-                } w-full py-3 mt-8 rounded-lg text-white text-xs font-medium`}
+                    ? "bottom-32"
+                    : "md:bottom-10 mu:bottom-28"
+                } w-full py-3 mt-8 rounded-lg text-white text-xs font-medium  mu:text-[1rem]`}
               >
                 <Custombutton
                   onClick={() => {

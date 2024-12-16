@@ -23,17 +23,22 @@ export default function CustomDropdown({
       {/* Dropdown menu */}
       <div className="relative z-10 w-full h-full">
         <select
-          className="relative z-10 w-full h-full px-6 py-[0.25rem] bg-transparent text-white rounded-full focus:outline-none transition-all duration-300 hover:opacity-80 shadow-[0_5px_50px_-12px_rgba(255,253,0,0.5)] appearance-none placeholder:text-[0.5rem] text-[0.5rem]"
+          className="relative z-10 w-full h-full px-6 py-[0.25rem] bg-transparent text-white rounded-full focus:outline-none transition-all duration-300 hover:opacity-80 shadow-[0_5px_50px_-12px_rgba(255,253,0,0.5)] appearance-none placeholder:text-[0.5rem] mu:placeholder:text-[0.65rem] text-[0.5rem] mu:text-[0.90rem]"
           defaultValue=""
         >
-          <option value="" disabled hidden className="text-[0.5rem]">
+          <option
+            value=""
+            disabled
+            hidden
+            className="text-[0.5rem] mu:text-[0.65rem"
+          >
             {placeholder}
           </option>
           {options.map((option, index) => (
             <option
               key={index}
               value={option}
-              className="bg-[#0C0D29] text-white text-[0.5rem]"
+              className="bg-[#0C0D29] text-white text-[0.5rem] mu:text-[0.65rem]"
             >
               {option}
             </option>

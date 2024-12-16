@@ -12,8 +12,8 @@ export default function Card({
   AuctionName: string;
 }) {
   return (
-    <div className="relative w-[80%] msx:w-[82%] msx:h-[18em] h-[12.5em] rounded-[60px] mu:rounded-[75px] p-[2px] bg-gradient-to-r from-blue-500 to-red-600 shadow-custom2 mu:h-[20em] mu:w-[80%]">
-      <div className="relative w-full h-full rounded-[58px] mu:rounded-[75px] overflow-hidden">
+    <div className="relative w-[80%] msx:w-[82%] msx:h-[18em] h-[12.5em] rounded-[50px] mu:rounded-[75px] p-[2px] bg-gradient-to-r from-blue-500 to-red-600 shadow-custom2 mu:h-[20em] mu:w-[80%]">
+      <div className="relative w-full h-full rounded-[48px] mu:rounded-[75px] overflow-hidden">
         <Image
           src="/images/AirpodPro.png"
           alt="Airpod Pro"

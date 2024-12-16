@@ -106,7 +106,7 @@ export default function CircularProgressBarClosedBid({
       </div>
 
       {/* Current Highest display */}
-      <div className="-mt-1 text-white font-manrope text-[10px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1">
+      <div className="-mt-1 text-white font-manrope text-[10px] ms:text-[13px] mu:text-[16px] mu:-mt-0 ms:-mt-2">
         ${currentHighest.toFixed(2)}
       </div>
     </div>

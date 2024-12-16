@@ -7,20 +7,20 @@ const BidList = () => {
       {bids.map((bid, index) => (
         <div
           key={index}
-          className={`flex items-center justify-between text-[0.6rem] relative ${
+          className={`relative ms:right-5 flex items-center justify-between text-[0.6rem] ms:text-[0.8rem]  ${
             index === 0 ? "text-green-600 font-bold" : "text-white font-normal"
           }`}
         >
           <div className="flex items-center">
             <span>{bid.amount}</span>
             {bid.isMine && (
-              <div className="absolute -right-3">
+              <div className="absolute -right-3 ms:-right-4">
                 <Image
                   src="/images/avatar.png"
                   alt="Avatar"
                   height={10}
                   width={10}
-                  className="h-3 w-3"
+                  className="h-3 w-3 ms:h-4 ms:w-4"
                 />
               </div>
             )}

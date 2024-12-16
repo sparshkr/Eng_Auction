@@ -17,9 +17,8 @@ import CustomInput from "@/components/CustomInput";
 import CustomDropdown from "@/components/CustomDropdown";
 import CustomDiv from "@/components/CustomDiv";
 import Modal2 from "@/components/Modal2";
-import { div } from "framer-motion/client";
 import BidList from "@/components/BidList";
-import CardClosedBid from "@/components/CardClosedBid";
+import CardOpenBid from "@/components/CardOpenBid";
 import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
 
 export default function Home() {
@@ -101,8 +100,8 @@ const AppContent = () => {
               <div className="relative">
                 {AuctionType === "openbid" && (
                   <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                    <div className="relative h-[13rem] w-[14rem] left-1">
-                      <CardClosedBid
+                    <div className="relative h-[13rem] w-[14rem] md:left-1 ms:h-[16rem] ms:w-[17rem] ms:right-3 ">
+                      <CardOpenBid
                         ReservePrice={Reserveprice}
                         EMDprice={EMDprice}
                         AuctionName={AuctionName}
@@ -123,7 +122,7 @@ const AppContent = () => {
                 )}
               </div>
 
-              <div className="mu:mt-[4.2rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
+              <div className="mu:mt-[4.2rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
                 <div className="relative -left-10 ms:-left-11  mr-0">
                   <Input />
                 </div>
@@ -249,7 +248,7 @@ const AppContent = () => {
                       }}
                     >
                       <div
-                        className="w-full  h-full text-[0.7rem] font-[500] mu:text-[0.85rem] ms:text-[0.7rem]"
+                        className="relative w-full flex items-center justify-center h-full text-[0.7rem]  text-center font-[500] mu:text-[0.85rem] ms:text-[0.7rem]"
                         style={{ wordSpacing: "3px" }}
                       >
                         BUY MORE PLAYS
@@ -264,33 +263,37 @@ const AppContent = () => {
         </div>
       )}
       <Modal2 isOpen={isModalOpen} onClose={closeModal}>
-        <div className="w-full h-full flex  items-center justify-center">
-          <div className="flex flex-col w-[80%]  text-white text-xs justify-center items-center gap-2">
+        <div className="w-full h-full flex  items-center justify-center ">
+          <div className="flex flex-col w-[80%] mu:w-[75%]  mu:text-xl text-white text-xs justify-center items-center gap-2">
             <h2>BUY PLAYs</h2>
-            <section className="text-xs text-center">
+            <section className="text-xs text-center mu:text-[1rem] mu:leading-5">
               Buy Plays using $Aux Tokens and get 10% Free PLAYS
             </section>
-            <div className="flex flex-col justify-center gap-1 w-[80%] ">
+            <div className="flex flex-col justify-center gap-1 w-[80%] mu:mt-3 mu:gap-2 mu:w-[85%]">
               <CustomInput placeholder="Enter Number of PLAYs"></CustomInput>
               <CustomDropdown
                 placeholder="Select"
                 options={["Option1", "Option2"]}
               ></CustomDropdown>
-              <div className="flex">
+              <div className="flex ">
                 <CustomDiv>Amount to be Paid</CustomDiv>
-                <div className="absolute flex flex-col text-[0.5rem] w-auto  left-[195px]">
-                  <div>USDT</div>
-                  <div className="-mt-1 text-[0.4rem]">(1 PLAY = $0.1)</div>
+                <div className="absolute flex flex-col mu:right-5 ms:right-3 gap-0 text-[0.5rem] w-auto md:left-[195px]">
+                  <div className="mu:text-[0.6rem]">USDT</div>
+                  <div className="md:-mt-1 text-[0.4rem] mu:-mt-4 mu:text-[0.5rem]">
+                    (1 PLAY = $0.1)
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-full h-6 mt-1">
+            <div className="w-full h-6 mt-1 ms:h-10 ms:w-[110%]">
               <Custombutton
                 onClick={() => {
                   console.log("Buys PLAYs");
                 }}
               >
-                <div className="-mt-1 text-[0.6rem]">SUBMIT</div>
+                <div className="-mt-1 text-[0.6rem] ms:text-[0.9rem]">
+                  SUBMIT
+                </div>
               </Custombutton>
             </div>
           </div>

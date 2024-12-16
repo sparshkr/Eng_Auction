@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import "../app/styles/custom-scrollbar.css";
-export default function CardClosedBid({
+export default function CardOpenBid({
   EMDprice,
   ReservePrice,
   AuctionName,
@@ -33,13 +33,13 @@ export default function CardClosedBid({
       </div>
 
       {/* EMD Price */}
-      <div className="absolute -bottom-9 left-10 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-4 ms:left-4 ms:top-[0.7rem] mu:top-[1rem] ms:text-[13px]">
+      <div className="absolute -bottom-9 left-10 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-4 ms:-left-16 ms:top-[0.6rem] mu:top-[1rem] ms:text-[12px]">
         <div className="-mb-1">EMD Paid</div>
         <div>${EMDprice.toFixed(2)}</div>
       </div>
 
       {/* Reserve Price */}
-      <div className="absolute -bottom-9 right-3 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:right-4 ms:right-4 mu:top-[-1.7rem] ms:text-[13px] ms:top-[-1.5rem]">
+      <div className="absolute -bottom-9 right-3 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:right-4 ms:left-[5.1rem] mu:top-[-1.7rem] ms:text-[12px] ms:top-[-1.5rem]">
         <div className="-mb-1">Reserve Price</div>
         <div>${ReservePrice.toFixed(2)}</div>
       </div>

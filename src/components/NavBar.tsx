@@ -49,7 +49,7 @@ export default function NavBar(): JSX.Element {
                 className={`${navItem.name == "How to" ? `mt-[4px]` : `mt-0`}`}
               />
             </div>
-            <span className="text-sm font-[600] md:text-[10px] mu:text-[14px]">
+            <span className="text-sm font-[600] md:text-[10px] ms:text-[12px] mu:text-[14px]">
               {navItem.name}
             </span>
           </button>
