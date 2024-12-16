@@ -73,7 +73,11 @@ const AppContent = () => {
           {/* Content */}
           <div className="relative z-20 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar">
             <div className="relative min-h-full text-white flex flex-col justify-start items-center p-3 gap-5">
-              <TopBar setProfileSection={setProfileSection} />
+              {/* <TopBar setProfileSection={setProfileSection} /> */}
+              <TopBar
+                setIsModalOpen={setIsModalOpen}
+                setProfileSection={setProfileSection}
+              />
               <div className="w-full mu:mt-4 px-2 mu:px-5 ms:px-3 msx:px-2 ">
                 <Details ProductName={ProductName} BasePrice={BasePrice} />
               </div>
@@ -164,7 +168,10 @@ const AppContent = () => {
           <div className="absolute inset-0 bg-[url('/images/download.png')] bg-center bg-cover opacity-25 z-10"></div>
           <div className="relative z-20 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar">
             <div className="relative min-h-full text-white flex flex-col justify-start items-center p-3 gap-2">
-              <TopBar setProfileSection={setProfileSection} />
+              <TopBar
+                setIsModalOpen={setIsModalOpen}
+                setProfileSection={setProfileSection}
+              />
               <div className="w-full text-center mt-5 text-xl md:text-xl font-[500]">
                 Profile
               </div>

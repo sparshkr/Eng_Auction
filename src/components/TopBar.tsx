@@ -1,28 +1,15 @@
-import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
-import Modal from "./modal";
-import Custombutton from "./Custombutton";
+import { Sidebar } from "./sidebar";
+import Image from "next/image"; // Assuming you are using Next.js, adjust if needed
 
 export default function Topbar({
   setProfileSection,
+  setIsModalOpen,
 }: {
   setProfileSection: Dispatch<SetStateAction<boolean>>;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const user = "Bhavya";
-  // const user = undefined;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    if (user === undefined || user === null) {
-      setIsModalOpen(true);
-    } else {
-      setProfileSection((profileSection) => {
-        return !profileSection;
-      });
-    }
-  };
-
-  const closeModal = () => setIsModalOpen(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <>
@@ -41,7 +28,7 @@ export default function Topbar({
 
         <button
           className="bg-[#B57FEC] w-7 h-7 mu:w-10 mu:h-10 flex flex-col justify-evenly items-center rounded-lg top-2 bg-opacity-50"
-          onClick={openModal}
+          onClick={() => setIsSidebarOpen(true)}
         >
           <span className="block w-3 mu:w-4 border-t-1 border border-white"></span>
           <span className="block w-3 mu:w-4 border-t-1 border border-white"></span>
@@ -49,84 +36,12 @@ export default function Topbar({
         </button>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <div className="h-[100%] w-full  flex flex-col items-center">
-          <h2 className="text-2xl font-bold mb-4 mu:text-md md:text-sm">
-            Log In
-          </h2>
-
-          <div className="flex flex-col gap-2 md:text-[0.5rem] mu:text-md ms:text-sm">
-            <Custombutton
-              onClick={() => {
-                console.log("Clicked");
-              }}
-            >
-              <div className="flex gap-3 items-center justify-center">
-                <Image
-                  src="/images/email.png"
-                  alt="email"
-                  height={20}
-                  width={30}
-                  className="mu:h-3 mu:w-4 md:h-2 md:w-3"
-                />
-
-                <div>LOGIN WITH EMAIL</div>
-              </div>
-            </Custombutton>
-            <Custombutton
-              onClick={() => {
-                console.log("Clicked");
-              }}
-            >
-              <div className="flex gap-3 items-center justify-center">
-                <Image
-                  src="/images/phone.png"
-                  alt="email"
-                  height={20}
-                  width={30}
-                  className="mu:h-4 mu:w-4 md:h-3 md:w-3"
-                />
-
-                <div>LOGIN WITH PHONE NO.</div>
-              </div>
-            </Custombutton>
-            <Custombutton
-              onClick={() => {
-                console.log("Clicked");
-              }}
-            >
-              <div className="flex gap-3 items-center justify-center">
-                <Image
-                  src="/images/wallet.png"
-                  alt="email"
-                  height={20}
-                  width={30}
-                  className="mu:h-4 mu:w-5 md:h-3 md:w-3"
-                />
-
-                <div>LOGIN WITH WALLET</div>
-              </div>
-            </Custombutton>
-            <Custombutton
-              onClick={() => {
-                console.log("Clicked");
-              }}
-            >
-              <div className="flex gap-3 items-center justify-center">
-                <Image
-                  src="/images/telegram.png"
-                  alt="email"
-                  height={20}
-                  width={30}
-                  className="mu:h-4 mu:w-4 md:h-3 md:w-3"
-                />
-
-                <div>LOGIN WITH TELEGRAM</div>
-              </div>
-            </Custombutton>
-          </div>
-        </div>
-      </Modal>
+      <Sidebar
+        setIsModalOpen={setIsModalOpen}
+        setProfileSection={setProfileSection}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
     </>
   );
 }
