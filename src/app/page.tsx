@@ -100,18 +100,27 @@ const AppContent = () => {
               <div className="relative">
                 {AuctionType === "openbid" && (
                   <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                    <div className="relative h-[13rem] w-[14rem] md:left-1 ms:h-[16rem] ms:w-[17rem] ms:right-3 ">
+                    <div className="relative h-[13rem] w-[14rem] md:left-1 ms:h-[16rem] ms:w-[17rem] ms:right-3 mu:h-[18rem] mu:w-[18rem] mu:right-6">
                       <CardOpenBid
                         ReservePrice={Reserveprice}
                         EMDprice={EMDprice}
                         AuctionName={AuctionName}
                       />
                       <div className="absolute bottom-0 left-[52%] transform -translate-x-1/2 translate-y-1/2 z-40">
-                        <CircularProgressBarClosedBid
-                          currentHighest={currentHighest}
-                          progress={59}
-                          radius={8}
-                        />
+                        <div className="ms:block mu:hidden">
+                          <CircularProgressBarClosedBid
+                            currentHighest={currentHighest}
+                            progress={59}
+                            radius={8}
+                          />
+                        </div>
+                        <div className="ms:hidden">
+                          <CircularProgressBarClosedBid
+                            currentHighest={currentHighest}
+                            progress={59}
+                            radius={10}
+                          />
+                        </div>
                       </div>
                     </div>
 
@@ -122,8 +131,8 @@ const AppContent = () => {
                 )}
               </div>
 
-              <div className="mu:mt-[4.2rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
-                <div className="relative -left-10 ms:-left-11  mr-0">
+              <div className=" mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
+                <div className="relative -left-11 ms:-left-11  mr-0">
                   <Input />
                 </div>
 
@@ -171,10 +180,10 @@ const AppContent = () => {
                 setIsModalOpen={setIsModalOpen}
                 setProfileSection={setProfileSection}
               />
-              <div className="w-full text-center mt-5 text-xl md:text-xl font-[500]">
+              <div className="w-full text-center mt-5 text-xl md:text-xl font-[500] mu:text-3xl">
                 Profile
               </div>
-              <section className=" md:mb-5 pb-5 w-[90%] mu:w-[80%] border-[0.05px] flex flex-col overflow-x-hidden items-center gap-3 rounded-xl bg-white bg-opacity-15 ">
+              <section className=" md:mb-5 pb-5 w-[90%] mu:w-[85%] border-[0.05px] flex flex-col overflow-x-hidden items-center gap-3 rounded-xl bg-white bg-opacity-15 mu:mt-">
                 <div className="w-[80%]  flex  items-center mt-4 gap-4">
                   <Image
                     src={"/images/avatar.png"}
@@ -184,7 +193,7 @@ const AppContent = () => {
                     className="h-20 w-20 mu:h-28 mu:w-28 ms:h-20 ms:w-20"
                   />
                   <div className="flex flex-col justify-center ">
-                    <div className="text-lg mu:text-3xl flex justify-center items-center gap-2">
+                    <div className="text-lg mu:text-2xl flex justify-center items-center gap-2">
                       <div>Bhavya</div>
                       <button>
                         <Image
@@ -208,47 +217,47 @@ const AppContent = () => {
                     </button>
                   </div>
                 </div>
-                <div className="w-[90%] mx-auto flex flex-col gap-2 mu:text-md ms:text-sm">
+                <div className="w-[90%] mx-auto flex flex-col gap-2 mu:gap-3 mu:text-md ms:text-sm">
                   <div className="flex flex-row items-center justify-around ">
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC] h-full">
                         Wallet Address
                       </div>
                       <div>0xcf43...f3a50</div>
                     </div>
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC]">Plays</div>
                       <div>5,999</div>
                     </div>
                   </div>
                   <div className="flex flex-row items-center justify-around ">
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC]">Referral Code</div>
                       <div>AUCX02</div>
                     </div>
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC]">Player ID</div>
                       <div>567535724</div>
                     </div>
                   </div>
                   <div className="flex flex-row items-center justify-around ">
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC]">State</div>
                       <div>Gujarat</div>
                     </div>
-                    <div className="flex flex-col border w-[50%] h-full md:text-xs items-center py-1 md:gap-1">
+                    <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
                       <div className="text-[#B57FEC]">Country</div>
                       <div>India</div>
                     </div>
                   </div>
-                  <div className="mx-4 h-8 mt-1">
+                  <div className="mx-4 h-8 mt-1 mu:mt-2 mu:h-10">
                     <Custombutton
                       onClick={() => {
                         console.log(setIsModalOpen(true));
                       }}
                     >
                       <div
-                        className="relative w-full flex items-center justify-center h-full text-[0.7rem]  text-center font-[500] mu:text-[0.85rem] ms:text-[0.7rem]"
+                        className="relative w-full flex items-center justify-center h-full text-[0.7rem]  text-center font-[500] mu:text-[0.85rem] ms:text-[0.8rem]"
                         style={{ wordSpacing: "3px" }}
                       >
                         BUY MORE PLAYS
@@ -285,13 +294,13 @@ const AppContent = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full h-6 mt-1 ms:h-10 ms:w-[110%]">
+            <div className="w-full h-6 mt-1 ms:h-10 ms:w-[110%] mu:w-[110%] mu:h-12">
               <Custombutton
                 onClick={() => {
                   console.log("Buys PLAYs");
                 }}
               >
-                <div className="-mt-1 text-[0.6rem] ms:text-[0.9rem]">
+                <div className="-mt-1 text-[0.6rem] ms:text-[0.9rem] mu:text-[1rem]">
                   SUBMIT
                 </div>
               </Custombutton>

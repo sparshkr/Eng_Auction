@@ -20,7 +20,7 @@ export default function CustomInput({ placeholder }: CustomInputProps) {
       <input
         type="number"
         placeholder={placeholder}
-        className="relative z-10 w-full h-full px-4 py-[0.25rem] bg-transparent text-white rounded-full focus:outline-none transition-all duration-300 hover:opacity-80 shadow-[0_5px_50px_-12px_rgba(255,253,0,0.5)] appearance-none placeholder:text-[0.5rem] mu:placeholder:text-[0.8rem]"
+        className="relative z-10 w-full h-full px-4 py-[0.25rem] bg-transparent text-white rounded-full focus:outline-none transition-all duration-300 hover:opacity-80 shadow-[0_5px_50px_-12px_rgba(255,253,0,0.5)] appearance-none placeholder:text-[0.5rem] mu:placeholder:text-[0.8rem] text-center mu:pb-2"
         style={{
           MozAppearance: "textfield", // Firefox
           WebkitAppearance: "none", // Chrome, Safari, Edge
