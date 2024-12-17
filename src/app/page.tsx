@@ -20,10 +20,12 @@ import Modal2 from "@/components/Modal2";
 import BidList from "@/components/BidList";
 import CardOpenBid from "@/components/CardOpenBid";
 import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
     <div className="font-[500]">
+      <Toaster position="top-right" />
       <div className="relative md:hidden ">
         <div className="h-screen w-screen font-manrope">
           <AppContent />

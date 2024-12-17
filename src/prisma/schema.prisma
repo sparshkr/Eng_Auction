@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BidType {
+  OPEN
+  SEALED
+}
+
+enum AuctionType {
+  ENGLISH
+  VICKERY
+  THE_LAST_PLAY
+  HIGHEST_UNIQUE
+  LOWEST_UNIQUE
+  DUTCH
+}
+
+enum WinningCondition {
+  HIGHEST_BID
+  LOWEST_BID
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  role      String    @default("USER")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  auctions  Auction[] @relation("AuctionCreator")
+  bids      Bid[]     @relation("BidCreator")
+  wonAuctions Auction[] @relation("AuctionWinner")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  category    String
+  price       Decimal
+  photoUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  auctions    Auction[]
+}
+
+model Auction {
+  id                  Int               @id @default(autoincrement())
+  name                String
+  auctionType         AuctionType
+  creator             User              @relation("AuctionCreator", fields: [creatorId], references: [id])
+  creatorId           Int
+  product             Product           @relation(fields: [productId], references: [id])
+  productId           Int
+  createdAt           DateTime          @default(now())
+  auctionStartTime    DateTime
+  winningCondition    WinningCondition
+  auctionEndTime      DateTime?
+  maxBids             Int?
+  bidType             BidType
+  bids                Bid[]
+  reservePrice        Decimal
+  registrationFees    Decimal
+  earnestMoneyRequired Boolean          @default(false)
+  earnestMoneyDeposit Decimal?
+  registrations       Int               @default(0)
+  powerPlay           Boolean           @default(false)
+  auctionEnded        Boolean           @default(false)
+  winner              User?             @relation("AuctionWinner", fields: [winnerId], references: [id])
+  winnerId            Int?
+}
+
+model Bid {
+  id        Int      @id @default(autoincrement())
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId Int
+  bidder    User     @relation("BidCreator", fields: [bidderId], references: [id])
+  bidderId  Int
+  amount    Decimal
+  timeStamp DateTime @default(now())
+}
