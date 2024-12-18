@@ -8,6 +8,7 @@ import { AuctionWebSocketProvider, useAuctionWebSocket } from '@/providers/aucti
 import { url } from 'inspector';
 import { ROUTES } from '@/constants';
 import { Toaster } from 'react-hot-toast';
+import { span } from 'framer-motion/client';
 
 function BidForm() {
     const [amount, setAmount] = useState('');
@@ -135,8 +136,9 @@ function AuctionDetail() {
                         </div>
                     )}
                 </div>
-
-                <BidForm />
+                {
+                    new Date(auction.auctionEndTime as unknown as string) < new Date() ? <span className="text-sm text-gray-800">Auction Ended</span> : <BidForm />
+                }
             </div>
         </div>
     );

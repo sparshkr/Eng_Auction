@@ -20,7 +20,21 @@ import Modal2 from "@/components/Modal2";
 import BidList from "@/components/BidList";
 import CardOpenBid from "@/components/CardOpenBid";
 import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
-import { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
+import { useRouter } from 'next/navigation';
+import { useWebSocketStore } from "@/websocket/service";
+import { useAuthStore } from "@/auth/service";
+import { AuctionWebSocketProvider, useAuctionWebSocket } from "@/providers/auctionWebsocket";
+import { AuctionWithDetails } from "@/types/auction.types";
+import { ROUTES } from "@/constants";
+
+// Types for our state
+interface Bid {
+  id: number;
+  amount: number;
+  timeStamp: string;
+  bidderId: number;
+}
 
 export default function Home() {
   return (
@@ -28,38 +42,110 @@ export default function Home() {
       <Toaster position="top-right" />
       <div className="relative md:hidden ">
         <div className="h-screen w-screen font-manrope">
-          <AppContent />
+          <AuctionWebSocketProvider auctionId={147}>
+            <AppContent />
+          </AuctionWebSocketProvider>
         </div>
       </div>
       <div className="hidden md:block font-manrope ">
-        <PhoneFrame AppContent={<AppContent />} />
+        <PhoneFrame AppContent={
+          <AuctionWebSocketProvider auctionId={147}>
+            <AppContent />
+          </AuctionWebSocketProvider>
+        } />
       </div>
     </div>
   );
 }
 
 const AppContent = () => {
+  const router = useRouter();
+  const { user, logout } = useAuthStore();
+  const { connected: isConnected } = useWebSocketStore();
+  const { placeBid } = useAuctionWebSocket();
+
   const [avatarUrls, setAvatarUrls] = useState<string[]>([]);
   const [profileSection, setProfileSection] = useState(false);
-  const AuctionName = "English Auction";
-  const ProductName = "AirpodsPro";
-  const BasePrice = 1000.0;
-  const EMDprice = 200.0;
-  const Reserveprice = 500.0;
-  const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const AuctionType: string = "closedbid";
-  // const AuctionType: string = "openbid";
-
+  const [auction, setAuction] = useState<AuctionWithDetails | null>(null);
+  const [bidAmount, setBidAmount] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const closeModal = () => setIsModalOpen(false);
 
+  // Constants can be moved to configuration or fetched from API
+  const AuctionName = auction?.name || "English Auction";
+  const ProductName = auction?.product?.name || "AirpodsPro";
+  // @vedant-asati Fix the types
+  const BasePrice = auction?.reservePrice as unknown as number || 1000.0;
+  const EMDprice = auction?.earnestMoneyDeposit as unknown as number || 200.0;
+  const Reserveprice = auction?.reservePrice as unknown as number || 500.0;
+  const currentHighest = auction?.bids?.[0]?.amount as unknown as number || 999.98;
+  const AuctionType = auction?.bidType?.toLowerCase() || "closedbid";
+
   useEffect(() => {
+    // Fetch auction details
+    const fetchAuction = async () => {
+      try {
+        const response = await fetch(ROUTES.AUCTIONS.GET_ACTIVE);
+        const data = await response.json();
+        setAuction(data[0]); // Get first active auction
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching auction:', error);
+        toast.error('Failed to load auction details');
+        setIsLoading(false);
+      }
+    };
+
+    fetchAuction();
+  }, []);
+
+  useEffect(() => {
+    // Avatar URLs setup
     const newAvatarUrls = Array.from(
       { length: 28 },
       (_, i) => `https://api.auctionx.dev/assets/avatar/${i + 1}.png`
     );
     setAvatarUrls(newAvatarUrls);
   }, []);
+
+  const handleBidSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error('Please login to place a bid');
+      router.push('/auth/login');
+      return;
+    }
+
+    if (!isConnected) {
+      toast.error('Not connected to server');
+      return;
+    }
+
+    if (!auction) {
+      toast.error('Auction details not available');
+      return;
+    }
+
+    try {
+      await placeBid(auction.id, Number(bidAmount));
+      setBidAmount("");
+      // toast.success('Bid placed successfully');
+    } catch (error) {
+      toast.error('Failed to place bid');
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    router.push('/auth/login');
+    toast.success('Logged out successfully');
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // You can replace with a proper loading component
+  }
+
 
   return (
     <>
@@ -134,8 +220,20 @@ const AppContent = () => {
               </div>
 
               <div className=" mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
-                <div className="relative -left-11 ms:-left-11  mr-0">
-                  <Input />
+                <div className="relative -left-10 ms:-left-11  mr-0">
+                  {/* <Input /> */}
+                  <form onSubmit={handleBidSubmit}>
+                    <Input
+                      value={bidAmount}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBidAmount(e.target.value)}
+                      placeholder="Enter bid amount"
+                    />
+                  </form>
+                </div>
+                {/* Connection status indicator */}
+                <div className="absolute top-2 right-2">
+                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'
+                    }`} />
                 </div>
 
                 <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4 msx:pl-5">

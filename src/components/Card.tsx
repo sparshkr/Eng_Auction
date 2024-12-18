@@ -30,11 +30,11 @@ export default function Card({
 
       <div className="absolute -bottom-9 md:left-1 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:right-[5.3rem] ms:right-[4.9rem] ms:top-[0.7rem] mu:top-[1rem] ms:text-[13px]">
         <div className="-mb-1 ">EMD Paid</div>
-        <div>${EMDprice.toFixed(2)}</div>
+        <div>${parseFloat(EMDprice).toFixed(2)}</div>
       </div>
       <div className="absolute  -bottom-9 flex flex-col text-[11px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-[6.2rem] ms:left-[5.5rem] mu:top-[-1.7rem] md:-right-2 ms:text-[13px] ms:top-[-1.5rem]">
         <div className="-mb-1">Reserve Price</div>
-        <div>${ReservePrice.toFixed(2)}</div>
+        <div>${parseFloat(ReservePrice).toFixed(2)}</div>
       </div>
     </div>
   );

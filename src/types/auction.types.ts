@@ -1,13 +1,8 @@
-import { Auction, Bid, User } from '@prisma/client';
+import { Auction, Bid, Product,User } from '@prisma/client';
 
 export interface AuctionWithDetails extends Auction {
   bids: Bid[];
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-  };
+  product: Product;
   creator: {
     id: number;
     name: string;

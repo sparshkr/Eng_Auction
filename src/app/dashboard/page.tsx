@@ -24,7 +24,7 @@ export default function Home() {
                     <div className="flex justify-between items-center mb-8">
                         <h1 className="text-3xl text-gray-900 font-bold">Active Auctions</h1>
                         {user ? (
-                            <span>Welcome, {user.name}</span>
+                            <span className='text-gray-600'>Welcome, {user.name}</span>
                         ) : (
                             <Link href="/auth/login" className="text-blue-500 hover:underline">
                                 Login to Bid
@@ -40,6 +40,7 @@ export default function Home() {
                                 className="block"
                             >
                                 <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                                    <h2 className="text-xl text-gray-700 font-semibold mb-2">#{auction.id}</h2>
                                     <h2 className="text-xl text-gray-700 font-semibold mb-2">{auction.name}</h2>
                                     <p className="text-gray-600 mb-4">{auction.product.name}</p>
                                     <div className="flex justify-between items-center">
@@ -51,6 +52,8 @@ export default function Home() {
                                             Bids: {auction.bids.length}
                                         </span>
                                     </div>
+                                    {/* <h4 className='text-sm text-gray-600 mt-2'>{auction.auctionEnded ? 'Auction Ended' : 'Auction Live'}</h4> */}
+                                    <h4 className='text-sm text-gray-600 mt-2'>{new Date(auction.auctionEndTime as unknown as string) < new Date() ? 'Auction Ended' : 'Auction Live'}</h4>
                                 </div>
                             </Link>
                         ))}

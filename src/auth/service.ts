@@ -14,7 +14,7 @@ interface AuthStore {
 
 export const useAuthStore = create<AuthStore>((set) => ({
     token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
-    user: null,
+    user: typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') as string) as User : null,
     loading: false,
 
     login: async (email: string, password: string) => {
@@ -30,6 +30,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             set({ token: data.token, user: data.user, loading: false });
 
             // Connect WebSocket after successful login
@@ -43,6 +44,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
     logout: () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         set({ token: null, user: null });
         useWebSocketStore.getState().disconnect();
     },
@@ -60,6 +62,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             set({ token: data.token, user: data.user, loading: false });
 
             useWebSocketStore.getState().connect(data.token);
