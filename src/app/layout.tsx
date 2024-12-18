@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Montserrat, Sora, Manrope } from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const montserrat = Montserrat({
+  subsets: ["latin"], // Define the subset you need
+  weight: ["400", "700"], // Specify weights to include (e.g., normal and bold)
+  variable: "--font-montserrat", // Define a CSS variable for Montserrat
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const sora = Sora({
+  subsets: ["latin"], // Specify subsets
+  weight: ["600"], // Add the weights you need
+  variable: "--font-sora", // Define a CSS variable
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${montserrat.variable} ${sora.variable} ${manrope.variable} antialiased`}
       >
         {children}
       </body>

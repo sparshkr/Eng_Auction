@@ -10,7 +10,7 @@ import TopBar from "@/components/TopBar";
 import Details from "@/components/Details";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import "./styles/custom-scrollbar.css";
-import "@fontsource/manrope";
+// import "@fontsource/manrope";
 import Custombutton from "@/components/Custombutton";
 import Modal from "@/components/modal";
 import CustomInput from "@/components/CustomInput";
@@ -25,11 +25,11 @@ export default function Home() {
   return (
     <div className="font-[500]">
       <div className="relative md:hidden ">
-        <div className="h-screen w-screen font-manrope">
+        <div className="h-screen w-screen ">
           <AppContent />
         </div>
       </div>
-      <div className="hidden md:block font-manrope ">
+      <div className="hidden md:block  ">
         <PhoneFrame AppContent={<AppContent />} />
       </div>
     </div>
@@ -46,8 +46,8 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const AuctionType: string = "closedbid";
-  // const AuctionType: string = "openbid";
+  // const AuctionType: string = "closedbid";
+  const AuctionType: string = "openbid";
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -114,7 +114,7 @@ const AppContent = () => {
                             radius={8}
                           />
                         </div>
-                        <div className="ms:hidden">
+                        <div className="ms:hidden md:hidden">
                           <CircularProgressBarClosedBid
                             currentHighest={currentHighest}
                             progress={59}

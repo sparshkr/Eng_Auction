@@ -11,6 +11,7 @@ export default {
       backdropBlur: {
         xs: '0.9px',
       },
+      
       screens: {
         'xs': '350px',
         mu: { max: '768px' },
@@ -24,7 +25,10 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        manrope: ["'Manrope'", "sans-serif"],
+        manrope: ['Manrope', "sans-serif"],
+        sora: ['Sora', 'sans-serif'],
+        montserrat: ['Montserrat','sans-serif']
+
       },
     },
   },
