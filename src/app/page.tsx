@@ -46,8 +46,8 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const AuctionType: string = "closedbid";
-  const AuctionType: string = "openbid";
+  const AuctionType: string = "closedbid";
+  // const AuctionType: string = "openbid";
 
   const closeModal = () => setIsModalOpen(false);
 

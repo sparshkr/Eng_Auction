@@ -39,7 +39,7 @@ export default function CardOpenBid({
       </div>
 
       {/* Reserve Price */}
-      <div className="absolute font-manrope bottom-[-2.2rem] right-3 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-[6rem] ms:left-[5.1rem] mu:top-[-2.1rem] ms:text-[12px] ms:top-[-1.5rem] ">
+      <div className="absolute font-manrope bottom-[-2.2rem] right-3 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-[6rem] ms:left-[5.1rem] mu:top-[-2rem] ms:text-[12px] ms:top-[-1.45rem] ">
         <div className="-mb-1">Reserve Price</div>
         <div>${ReservePrice.toFixed(2)}</div>
       </div>
