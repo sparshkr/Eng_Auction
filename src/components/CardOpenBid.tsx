@@ -14,7 +14,7 @@ export default function CardOpenBid({
     <div className="relative w-[100%] h-full">
       {/* AuctionName overlay */}
       <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-        <div className="py-1 px-3 bg-[#c8a7ea] bg-opacity-60 font-bold text-[10px] ms:text-[12px] mu:text-[13px] rounded-[7px] whitespace-nowrap backdrop-blur-xs font-manrope">
+        <div className="py-1 px-3 bg-[#c8a7ea] bg-opacity-60 font-bold text-[10px] ms:text-[12px] mu:text-[13px]  rounded-[7px] whitespace-nowrap backdrop-blur-xs font-manrope">
           {AuctionName}
         </div>
       </div>

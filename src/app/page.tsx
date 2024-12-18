@@ -46,8 +46,8 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const AuctionType: string = "closedbid";
-  // const AuctionType: string = "openbid";
+  // const AuctionType: string = "closedbid";
+  const AuctionType: string = "openbid";
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -88,11 +88,18 @@ const AppContent = () => {
                     EMDprice={EMDprice}
                     AuctionName={AuctionName}
                   />
-                  <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col">
+                  <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:block mu:hidden">
                     <CircularProgressBar
                       currentHighest={currentHighest}
                       progress={59}
-                      radius={9}
+                      radius={10}
+                    />
+                  </div>
+                  <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:hidden md:hidden">
+                    <CircularProgressBar
+                      currentHighest={currentHighest}
+                      progress={59}
+                      radius={11}
                     />
                   </div>
                 </>
@@ -111,14 +118,14 @@ const AppContent = () => {
                           <CircularProgressBarClosedBid
                             currentHighest={currentHighest}
                             progress={59}
-                            radius={8}
+                            radius={9}
                           />
                         </div>
                         <div className="ms:hidden md:hidden">
                           <CircularProgressBarClosedBid
                             currentHighest={currentHighest}
                             progress={59}
-                            radius={10}
+                            radius={11}
                           />
                         </div>
                       </div>
