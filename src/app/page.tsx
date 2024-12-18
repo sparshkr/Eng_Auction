@@ -107,7 +107,7 @@ const AppContent = () => {
               <div className="relative">
                 {AuctionType === "openbid" && (
                   <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                    <div className="relative h-[13rem] w-[14rem] md:left-1 ms:h-[16rem] ms:w-[17rem] ms:right-3 mu:h-[18rem] mu:w-[18rem] mu:right-6">
+                    <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-0 mu:h-[18rem] mu:w-[18rem] mu:right-1">
                       <CardOpenBid
                         ReservePrice={Reserveprice}
                         EMDprice={EMDprice}
@@ -118,7 +118,7 @@ const AppContent = () => {
                           <CircularProgressBarClosedBid
                             currentHighest={currentHighest}
                             progress={59}
-                            radius={9}
+                            radius={8}
                           />
                         </div>
                         <div className="ms:hidden md:hidden">
