@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useCallback } from 'react';
 import { useWebSocket } from './websocket';
-import { Auction, Bid } from '@prisma/client';
 import { AuctionWebSocketContextType, AuctionWebSocketProviderProps } from '@/types/ws.types';
 
 const AuctionWebSocketContext = createContext<AuctionWebSocketContextType | null>(null);

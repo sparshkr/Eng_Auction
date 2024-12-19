@@ -1,4 +1,5 @@
-import { Auction, Bid, User } from '@prisma/client';
+import { Auction, Bid, Product, User } from './other';
+
 
 export type WebSocketMessageType =
   | 'JOIN_ROOM'

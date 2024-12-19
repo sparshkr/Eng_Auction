@@ -1,6 +1,6 @@
 import Image from "next/image";
 import bids from "./bids";
-import { Bid, User } from "@prisma/client";
+import { Bid, User } from "@/types/auction.types";
 
 interface InputProps {
   bids: Bid[];

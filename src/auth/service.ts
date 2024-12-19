@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { User } from '@prisma/client';
+import { User } from '@/types/other';
 import { useWebSocketStore } from '@/websocket/service';
 import { ROUTES } from '@/constants';
 
