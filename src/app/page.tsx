@@ -211,10 +211,12 @@ const AppContent = () => {
                         </div>
                       </div>
                     </div>
-
-                    <div className="relative top-4 right-[5.5rem]">
-                      <BidList />
-                    </div>
+                    {
+                      auction?.bids ?
+                        <div className="relative top-4 right-[5.5rem]">
+                          <BidList bids={auction?.bids} />
+                        </div> : ""
+                    }
                   </div>
                 )}
               </div>

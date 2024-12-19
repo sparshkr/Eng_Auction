@@ -1,4 +1,4 @@
-import { Auction, Bid, Product, User } from './other';
+import { Auction, Bid, Product, User } from '@/types/auction.types';
 
 
 export type WebSocketMessageType =

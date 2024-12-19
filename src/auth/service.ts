@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { User } from '@/types/other';
+import { User } from '@/types/auction.types';
 import { useWebSocketStore } from '@/websocket/service';
 import { ROUTES } from '@/constants';
 

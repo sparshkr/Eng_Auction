@@ -59,7 +59,7 @@ function AuctionDetail() {
 
     useEffect(() => {
         if (id) {
-            fetch(ROUTES.AUCTIONS.GET_BY_ID(id)) // @vedant-asati Fix type
+            fetch(ROUTES.AUCTIONS.GET_BY_ID(Number(id))) // @vedant-asati Fix type
                 .then(res => res.json())
                 .then(data => setAuction(data));
         }
