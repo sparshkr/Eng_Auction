@@ -36,7 +36,7 @@ export default function Home() {
                         {auctions?.map(auction => (
                             <Link
                                 key={auction.id}
-                                href={`/auctions/${auction.id}`}
+                                href={`/auction/${auction.id}`}
                                 className="block"
                             >
                                 <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">

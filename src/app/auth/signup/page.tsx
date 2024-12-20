@@ -16,7 +16,6 @@ export default function Signup() {
         e.preventDefault();
         try {
             await signup(email, password, name);
-            console.log("JSR");
             router.push('/dashboard');
         } catch (err: Error | unknown | any) {
             const message = err.message ? err.message : 'Invalid credentials';

@@ -1,6 +1,9 @@
-import React, { createContext, useContext, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useCallback, useState, useMemo } from 'react';
 import { useWebSocket } from './websocket';
 import { AuctionWebSocketContextType, AuctionWebSocketProviderProps } from '@/types/ws.types';
+import { AuctionWithDetails, Bid } from '@/types/auction.types';
+import { ROUTES } from '@/constants';
+import { useWebSocketStore } from '@/websocket/service';
 
 const AuctionWebSocketContext = createContext<AuctionWebSocketContextType | null>(null);
 
@@ -15,11 +18,54 @@ export const useAuctionWebSocket = () => {
 export const AuctionWebSocketProvider: React.FC<AuctionWebSocketProviderProps> = ({
     children,
     auctionId,
-    onNewBid,
-    onAuctionUpdate,
 }) => {
-
+    const [currentAuction, setCurrentAuction] = useState<AuctionWithDetails | null>(null);
     const { sendMessage, isConnected } = useWebSocket();
+
+
+
+    // Initial Fetch
+    useEffect(() => {
+        const fetchAuction = async () => {
+            if (auctionId) {
+                try {
+                    const response = await fetch(ROUTES.AUCTIONS.GET_BY_ID(Number(auctionId)));
+                    const data = await response.json();
+                    setCurrentAuction(data);
+                } catch (error) {
+                    console.error('Error fetching auction:', error);
+                }
+            }
+        };
+        fetchAuction();
+    }, [auctionId]);
+
+
+    // Function to Set Callbacks from the store
+    const setCallbacks = useWebSocketStore(state => state.setCallbacks);
+
+    // Create callback functions
+    const updateNewBid = useCallback((bid: Bid) => {
+        setCurrentAuction(prev => {
+            if (!prev) return prev;
+            return {
+                ...prev,
+                bids: [bid, ...prev.bids]
+            };
+        });
+    }, [currentAuction, setCurrentAuction]);
+
+    const updateFullAuction = useCallback((auction: AuctionWithDetails) => {
+        setCurrentAuction(auction);
+    }, []);
+
+    // Register callbacks with the store
+    useEffect(() => {
+        setCallbacks({
+            onNewBid: updateNewBid,
+            onAuctionUpdate: updateFullAuction
+        });
+    }, [updateNewBid, updateFullAuction, setCallbacks]);
 
     const joinAuction = useCallback((id: number) => {
         sendMessage({
@@ -58,6 +104,7 @@ export const AuctionWebSocketProvider: React.FC<AuctionWebSocketProviderProps> =
         leaveAuction,
         placeBid,
         currentAuctionId: auctionId,
+        currentAuction
     };
 
     return (

@@ -56,6 +56,8 @@ function BidForm() {
 function AuctionDetail() {
     const { id } = useParams();
     const [auction, setAuction] = useState<AuctionWithDetails | null>(null);
+    const { placeBid, currentAuctionId, currentAuction } = useAuctionWebSocket();
+
 
     useEffect(() => {
         if (id) {
@@ -64,6 +66,12 @@ function AuctionDetail() {
                 .then(data => setAuction(data));
         }
     }, [id]);
+
+    useEffect(() => {
+        setAuction(currentAuction);
+    }, [currentAuction]);
+
+
 
     if (!auction) return <div>Loading...</div>;
 

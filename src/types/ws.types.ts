@@ -1,4 +1,4 @@
-import { Auction, Bid, Product, User } from '@/types/auction.types';
+import { Auction, AuctionWithDetails, Bid, Product, User } from '@/types/auction.types';
 
 
 export type WebSocketMessageType =
@@ -21,7 +21,7 @@ export interface WebSocketMessage {
   amount?: number;
   bid?: Bid;
   message?: string;
-  auction?: Auction;
+  auction?: AuctionWithDetails;
   winner?: User;
   winningBid?: Bid;
 }
@@ -30,6 +30,8 @@ export interface WebSocketContextType {
   sendMessage: (message: WebSocketMessage) => void;
   isConnected: boolean;
   isConnecting: boolean;
+  // onAuctionUpdate?: (auction: AuctionWithDetails) => void;
+  // onNewBid?: (bid: Bid) => void;
 }
 
 export interface AuctionWebSocketContextType {
@@ -37,13 +39,16 @@ export interface AuctionWebSocketContextType {
   leaveAuction: (auctionId: number) => void;
   placeBid: (auctionId: number, amount: number) => void;
   currentAuctionId?: number;
+  currentAuction: AuctionWithDetails | null;  // Added
+  // updateAuctionState: (bid: Bid) => void;  // Added
+  // updateFullAuction: (auction: AuctionWithDetails) => void;  // Added
 }
 
 export interface AuctionWebSocketProviderProps {
   children: React.ReactNode;
   auctionId?: number;
-  onNewBid?: (bid: Bid) => void;
-  onAuctionUpdate?: (auction: Auction) => void;
+  // onNewBid?: (bid: Bid) => void;
+  // onAuctionUpdate?: (auction: AuctionWithDetails) => void;
 }
 
 export interface WebSocketProviderProps {

@@ -4,6 +4,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Custombutton from "./Custombutton";
+import { useAuthStore } from "@/auth/service";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,6 +22,15 @@ export function Sidebar({
   setIsModalOpen,
 }: SidebarProps) {
   const [profileButtonLabel, setProfileButtonLabel] = useState("My Profile");
+
+  const router = useRouter();
+  const { logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/auth/login');
+    toast.success('Logged out successfully');
+  };
 
   useEffect(() => {
     const content = document.querySelector(".phone-frame-content");
@@ -43,18 +55,16 @@ export function Sidebar({
     <>
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/30 backdrop-blur-xs z-[60] transition-opacity ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`absolute inset-0 bg-black/30 backdrop-blur-xs z-[60] transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Sidebar */}
       <aside
-        className={`absolute top-0 right-0 h-full w-64 max-w-[77%] z-[70] transform transition-transform duration-300 ease-in-out overflow-hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`absolute top-0 right-0 h-full w-64 max-w-[77%] z-[70] transform transition-transform duration-300 ease-in-out overflow-hidden ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         aria-label="Sidebar menu"
       >
         {/* Neon border container */}
@@ -114,24 +124,21 @@ export function Sidebar({
               </div>
 
               <div
-                className={`relative ${
-                  profileButtonLabel === "My Profile"
-                    ? "bottom-32"
-                    : "md:bottom-10 mu:bottom-28"
-                } w-full py-3 mt-8 rounded-lg text-white text-xs font-medium  mu:text-[1rem]`}
+                className={`relative ${profileButtonLabel === "My Profile"
+                  ? "bottom-32"
+                  : "md:bottom-10 mu:bottom-28"
+                  } w-full py-3 mt-8 rounded-lg text-white text-xs font-medium  mu:text-[1rem]`}
               >
                 <Custombutton
-                  onClick={() => {
-                    console.log("Logout from sidebar");
-                  }}
+                  onClick={handleLogout}
                 >
                   LOGOUT
                 </Custombutton>
               </div>
             </nav>
           </div>
-        </div>
-      </aside>
+        </div >
+      </aside >
     </>
   );
 }

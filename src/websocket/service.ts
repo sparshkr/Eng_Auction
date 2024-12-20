@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { toast } from 'react-hot-toast';
 import { WebSocketMessage } from '@/types/ws.types';
+import { AuctionWithDetails, Bid } from '@/types/auction.types';
 
 interface WebSocketStore {
   socket: WebSocket | null;
@@ -9,9 +10,12 @@ interface WebSocketStore {
   reconnectAttempts: number;
   connect: (token: string) => void;
   disconnect: () => void;
-  // joinAuction: (auctionId: number) => void;
-  // leaveAuction: (auctionId: number) => void;
-  // placeBid: (auctionId: number, amount: number) => void;
+  onAuctionUpdate?: (auction: AuctionWithDetails) => void; // Will be called when auction updates
+  onNewBid?: (bid: Bid) => void; // Will be called when new bid arrives
+  setCallbacks: (callbacks: {
+    onAuctionUpdate?: (auction: AuctionWithDetails) => void;
+    onNewBid?: (bid: Bid) => void;
+  }) => void;
 }
 
 const WEBSOCKET_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3000';
@@ -23,6 +27,15 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
   connected: false,
   connecting: false,
   reconnectAttempts: 0,
+  // onAuctionUpdate: undefined,
+  // onNewBid: undefined,
+
+  setCallbacks: (callbacks) => {
+    set({
+      onNewBid: callbacks.onNewBid,
+      onAuctionUpdate: callbacks.onAuctionUpdate
+    });
+  },
 
   connect: (token: string) => {
     if (get().socket?.readyState === WebSocket.OPEN) return;
@@ -39,7 +52,7 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
     ws.onclose = (event) => {
       console.log('WebSocket disconnected:', event.code, event.reason);
       set({ socket: null, connected: false, connecting: false });
-      
+
       if (get().reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
         setTimeout(() => {
           set(state => ({ reconnectAttempts: state.reconnectAttempts + 1 }));
@@ -58,7 +71,7 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
     ws.onmessage = (event) => {
       try {
         const data: WebSocketMessage = JSON.parse(event.data);
-        handleWebSocketMessage(data);
+        handleWebSocketMessage(data, get());
       } catch (error) {
         console.error('Error parsing WebSocket message:', error);
       }
@@ -72,72 +85,48 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
       set({ socket: null, connected: false });
     }
   },
-
-  // joinAuction: (auctionId: number) => {
-  //   const { socket, connected } = get();
-  //   if (!socket || !connected) {
-  //     toast.error('Not connected to server');
-  //     return;
-  //   }
-
-  //   socket.send(JSON.stringify({
-  //     type: 'JOIN_ROOM',
-  //     auctionId
-  //   }));
-  // },
-
-  // leaveAuction: (auctionId: number) => {
-  //   const { socket, connected } = get();
-  //   if (!socket || !connected) return;
-
-  //   socket.send(JSON.stringify({
-  //     type: 'LEAVE_ROOM',
-  //     auctionId
-  //   }));
-  // },
-
-  // placeBid: (auctionId: number, amount: number) => {
-  //   const { socket, connected } = get();
-  //   if (!socket || !connected) {
-  //     toast.error('Not connected to server');
-  //     return;
-  //   }
-
-  //   socket.send(JSON.stringify({
-  //     type: 'BID',
-  //     auctionId,
-  //     amount
-  //   }));
-  // },
 }));
 
-function handleWebSocketMessage(data: WebSocketMessage) {
-  switch (data.type) {
-    case 'NEW_BID':
-      toast.success(`New bid placed: $${data.bid?.amount}`);
-      break;
-    
-    case 'BID_CONFIRMED':
-      toast.success(data.message || 'Bid placed successfully');
-      break;
-    
-    case 'AUCTION_START':
-      toast.success(data.message || 'Auction has started');
-      break;
-    
-    case 'AUCTION_END':
-      toast(
-        `Auction ended! Winner: ${data.winner?.name}`,
-        { icon: '🏆' }
-      );
-      break;
-    
-    case 'ERROR':
-      toast.error(data.message || 'An error occurred');
-      break;
-    
-    case 'DISCONNECTED':
-      toast.error(data.message || 'Disconnected from server');
-      break;
+function handleWebSocketMessage(data: WebSocketMessage, store: WebSocketStore) {
+  try {
+    switch (data.type) {
+      case 'NEW_BID':
+        if (data.bid) {
+          store.onNewBid?.(data.bid);
+          toast.success(`New bid placed: $${data.bid.amount}`);
+        }
+        break;
+
+      case 'BID_CONFIRMED':
+        toast.success(data.message || 'Bid placed successfully');
+        if (data.bid) {
+          store.onNewBid?.(data.bid);
+        }
+        break;
+
+      case 'AUCTION_START':
+        toast.success(data.message || 'Auction has started');
+        // if (data.auction) {
+        //   store.onAuctionUpdate?.(data.auction);
+        // }
+        break;
+
+      case 'AUCTION_END':
+        toast(`Auction ended! Winner: ${data.winner?.name}`, { icon: '🏆' });
+        // if (data.auction) {
+        //   store.onAuctionUpdate?.(data.auction);
+        // }
+        break;
+
+      case 'ERROR':
+        toast.error(data.message || 'An error occurred');
+        break;
+
+      case 'DISCONNECTED':
+        toast.error(data.message || 'Disconnected from server');
+        break;
+    }
+  } catch (error) {
+    console.error('Error handling WebSocket message:', error);
   }
 }

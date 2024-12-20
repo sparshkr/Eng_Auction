@@ -15,7 +15,6 @@ export default function Login() {
         e.preventDefault();
         try {
             await login(email, password);
-            console.log("JSR")
               router.push('/dashboard');
         } catch (err) {
             setError('Invalid credentials');

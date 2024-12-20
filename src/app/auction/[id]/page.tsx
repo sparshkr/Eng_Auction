@@ -25,63 +25,62 @@ import { useRouter, useParams } from 'next/navigation';
 import { useWebSocketStore } from "@/websocket/service";
 import { useAuthStore } from "@/auth/service";
 import { AuctionWebSocketProvider, useAuctionWebSocket } from "@/providers/auctionWebsocket";
-import { AuctionWithDetails } from "@/types/auction.types";
+import { AuctionWithDetails, Bid } from "@/types/auction.types";
 import { ROUTES } from "@/constants";
+import React from "react";
 
 export default function Home() {
     const { id: auctionId } = useParams();
     return (
-        <div className="font-[500]">
-            <Toaster position="top-right" />
-            <div className="relative md:hidden ">
-                <div className="h-screen w-screen font-manrope">
-                    <AuctionWebSocketProvider auctionId={Number(auctionId)}>
+        <AuctionWebSocketProvider auctionId={Number(auctionId)}>
+            <div className="font-[500]">
+                <Toaster position="top-right" />
+                <div className="relative md:hidden ">
+                    <div className="h-screen w-screen font-manrope">
                         <AppContent />
-                    </AuctionWebSocketProvider>
+                    </div>
+                </div>
+                <div className="hidden md:block font-manrope ">
+                    <PhoneFrame AppContent={
+                        <AppContent />
+                    } />
                 </div>
             </div>
-            <div className="hidden md:block font-manrope ">
-                <PhoneFrame AppContent={
-                    <AuctionWebSocketProvider auctionId={Number(auctionId)}>
-                        <AppContent />
-                    </AuctionWebSocketProvider>
-                } />
-            </div>
-        </div>
+        </AuctionWebSocketProvider>
     );
 }
 
 const AppContent = () => {
+    const { id: auctionId } = useParams();
     const router = useRouter();
     const { user, logout } = useAuthStore();
     const { connected: isConnected } = useWebSocketStore();
-    const { placeBid } = useAuctionWebSocket();
+    const [auction, setAuction] = useState<AuctionWithDetails | null>(null);
+    const { placeBid, currentAuctionId, currentAuction } = useAuctionWebSocket();
 
     const [avatarUrls, setAvatarUrls] = useState<string[]>([]);
     const [profileSection, setProfileSection] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [auction, setAuction] = useState<AuctionWithDetails | null>(null);
     const [bidAmount, setBidAmount] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const closeModal = () => setIsModalOpen(false);
 
-    // Constants can be moved to configuration or fetched from API
     const AuctionName = auction?.name || "English Auction";
     const ProductName = auction?.product?.name || "AirpodsPro";
     // @vedant-asati Fix the types
-    const BasePrice = auction?.reservePrice as unknown as number || 1000.0;
-    const EMDprice = auction?.earnestMoneyDeposit as unknown as number || 200.0;
-    const Reserveprice = auction?.reservePrice as unknown as number || 500.0;
-    const currentHighest = auction?.bids?.[0]?.amount as unknown as number || 999.98;
+    const BasePrice = auction?.reservePrice! || 1000.0;
+    const EMDprice = auction?.earnestMoneyDeposit! || 200.0;
+    const Reserveprice = auction?.reservePrice! || 500.0;
+    const currentHighest = auction?.bids?.[0]?.amount || auction?.reservePrice || 1000;
     const AuctionType = auction?.bidType || "SEALED";
 
     useEffect(() => {
-        // Fetch auction details
+        // Initial Fetch
         const fetchAuction = async () => {
             try {
-                const response = await fetch(ROUTES.AUCTIONS.GET_ACTIVE);
+                const response = await fetch(ROUTES.AUCTIONS.GET_BY_ID(Number(auctionId)));
                 const data = await response.json();
-                setAuction(data[0]); // Get first active auction
+                setAuction(data);
                 setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching auction:', error);
@@ -91,7 +90,11 @@ const AppContent = () => {
         };
 
         fetchAuction();
-    }, []);
+    }, [auctionId]);
+
+    useEffect(() => {
+        setAuction(currentAuction);
+    }, [currentAuction]);
 
     useEffect(() => {
         // Avatar URLs setup
@@ -121,9 +124,8 @@ const AppContent = () => {
         }
 
         try {
-            await placeBid(auction.id, Number(bidAmount));
+            placeBid(auction.id, Number(bidAmount));
             setBidAmount("");
-            // toast.success('Bid placed successfully');
         } catch (error) {
             toast.error('Failed to place bid');
         }
@@ -169,11 +171,18 @@ const AppContent = () => {
                                         EMDprice={EMDprice}
                                         AuctionName={AuctionName}
                                     />
-                                    <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col">
+                                    <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:block mu:hidden">
                                         <CircularProgressBar
                                             currentHighest={currentHighest}
                                             progress={59}
-                                            radius={9}
+                                            radius={10}
+                                        />
+                                    </div>
+                                    <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:hidden md:hidden">
+                                        <CircularProgressBar
+                                            currentHighest={currentHighest}
+                                            progress={59}
+                                            radius={11}
                                         />
                                     </div>
                                 </>
@@ -181,7 +190,7 @@ const AppContent = () => {
                             <div className="relative">
                                 {AuctionType === "OPEN" && (
                                     <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                                        <div className="relative h-[13rem] w-[14rem] md:left-1 ms:h-[16rem] ms:w-[17rem] ms:right-3 mu:h-[18rem] mu:w-[18rem] mu:right-6">
+                                        <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-0 mu:h-[18rem] mu:w-[18rem] mu:right-1">
                                             <CardOpenBid
                                                 ReservePrice={Reserveprice}
                                                 EMDprice={EMDprice}
@@ -195,11 +204,11 @@ const AppContent = () => {
                                                         radius={8}
                                                     />
                                                 </div>
-                                                <div className="ms:hidden">
+                                                <div className="ms:hidden md:hidden">
                                                     <CircularProgressBarClosedBid
                                                         currentHighest={currentHighest}
                                                         progress={59}
-                                                        radius={10}
+                                                        radius={11}
                                                     />
                                                 </div>
                                             </div>
@@ -207,7 +216,7 @@ const AppContent = () => {
                                         {
                                             auction?.bids ?
                                                 <div className="relative top-4 right-[5.5rem]">
-                                                    <BidList bids={auction?.bids} />
+                                                    <BidList bids={auction?.bids!} />
                                                 </div> : ""
                                         }
                                     </div>
