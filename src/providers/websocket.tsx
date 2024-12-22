@@ -19,7 +19,7 @@ export const useWebSocket = () => {
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     children,
     enableReconnect = true,
-    reconnectAttempts = 5,
+    reconnectAttempts = 2,
     reconnectInterval = 3000,
 }) => {
     const { token } = useAuthStore();
