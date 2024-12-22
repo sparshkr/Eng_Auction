@@ -3,7 +3,7 @@ import bids from "./bids";
 
 const BidList = () => {
   return (
-    <div className="flex flex-col text-white gap-1 font-montserrat">
+    <div className="flex flex-col text-white gap-1 font-montserrat font-[500]">
       {bids.map((bid, index) => (
         <div
           key={index}

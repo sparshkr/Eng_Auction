@@ -77,7 +77,7 @@ const AppContent = () => {
                 setIsModalOpen={setIsModalOpen}
                 setProfileSection={setProfileSection}
               />
-              <div className="w-full mu:mt-4 px-2 mu:px-5 ms:px-3 msx:px-2 ">
+              <div className="w-full mu:mt-4 ms:mt-2 px-2 mu:px-5 ms:px-3 msx:px-2 ">
                 <Details ProductName={ProductName} BasePrice={BasePrice} />
               </div>
 
@@ -107,7 +107,7 @@ const AppContent = () => {
               <div className="relative">
                 {AuctionType === "openbid" && (
                   <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                    <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-0 mu:h-[18rem] mu:w-[18rem] mu:right-1">
+                    <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-1 mu:h-[18rem] mu:w-[18rem] mu:right-1">
                       <CardOpenBid
                         ReservePrice={Reserveprice}
                         EMDprice={EMDprice}
@@ -118,7 +118,7 @@ const AppContent = () => {
                           <CircularProgressBarClosedBid
                             currentHighest={currentHighest}
                             progress={59}
-                            radius={8}
+                            radius={10}
                           />
                         </div>
                         <div className="ms:hidden md:hidden">
@@ -144,7 +144,7 @@ const AppContent = () => {
                 </div>
 
                 <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4 msx:pl-5">
-                  <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">
+                  <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] font-manrope">
                     HINT
                   </div>
                   <Image
@@ -158,7 +158,9 @@ const AppContent = () => {
               </div>
 
               <section className="-mt-1 flex flex-col gap-2 mb-2 w-full pl-2 pr-0 mu:px-5">
-                <h2 className="text-xs text-white mu:text-[15px]">Bidders</h2>
+                <h2 className="text-[10px] text-white mu:text-[15px] ms:text-[12px] font-sora font-[600]">
+                  Bidders
+                </h2>
                 <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
                   {avatarUrls.map((url, index) => (
                     <Image

@@ -23,7 +23,9 @@ export default function Topbar({
             className="mu:w-6 mu:h-6"
           />
 
-          <div className="text-[10px] mu:text-[13px] mu:font-[500]">5,999</div>
+          <div className="text-[10px] mu:text-[13px] mu:font-[500] font-inter font-[700]">
+            5,999
+          </div>
         </button>
 
         <button

@@ -27,7 +27,8 @@ export default {
       fontFamily: {
         manrope: ['Manrope', "sans-serif"],
         sora: ['Sora', 'sans-serif'],
-        montserrat: ['Montserrat','sans-serif']
+        montserrat: ['Montserrat','sans-serif'],
+        inter:['Inter','sans-serif']
 
       },
     },

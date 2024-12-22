@@ -99,14 +99,14 @@ export default function CircularProgressBarClosedBid({
 
         {/* Time display */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#3c0266] rotate-0 font-bold text-[11px] mu:text-[16px] ms:text-[14px]">
-            {time}
+          <span className="text-[#3c0266] rotate-0  font-[700] text-[11px] mu:text-[16px] ms:text-[14px]">
+            {progress}%
           </span>
         </div>
       </div>
 
       {/* Current Highest display */}
-      <div className="-mt-1 text-white font-manrope text-[10px] ms:text-[13px] mu:text-[15px] mu:-mt-0 ms:-mt-2">
+      <div className="-mt-1 text-white font-montserrat font-[600] text-[11px] ms:text-[13px] mu:text-[15px] mu:-mt-0 ms:-mt-1">
         ${currentHighest.toFixed(2)}
       </div>
     </div>
