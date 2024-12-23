@@ -99,14 +99,14 @@ export default function CircularProgressBar({
 
         {/* Time display */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#3c0266] rotate-0 font-bold text-[11px] mu:text-[16px] ms:text-[14px]">
-            {time}
+          <span className="text-[#3c0266] font-montserrat rotate-0 font-bold text-[11px] mu:text-[16px] ms:text-[14px]">
+            {progress}%
           </span>
         </div>
       </div>
 
       {/* Current Highest display */}
-      <div className="-mt-1 text-white font-manrope text-[13px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1">
+      <div className="-mt-1 text-white font-montserrat text-[12px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1 font-[600]">
         ${currentHighest.toFixed(2)}
       </div>
     </div>

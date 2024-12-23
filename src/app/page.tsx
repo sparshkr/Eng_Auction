@@ -10,9 +10,9 @@ import TopBar from "@/components/TopBar";
 import Details from "@/components/Details";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import "./styles/custom-scrollbar.css";
-// import "@fontsource/manrope";
+
 import Custombutton from "@/components/Custombutton";
-import Modal from "@/components/modal";
+
 import CustomInput from "@/components/CustomInput";
 import CustomDropdown from "@/components/CustomDropdown";
 import CustomDiv from "@/components/CustomDiv";
@@ -46,8 +46,8 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const AuctionType: string = "closedbid";
-  const AuctionType: string = "openbid";
+  const AuctionType: string = "closedbid";
+  // const AuctionType: string = "openbid";
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -138,7 +138,11 @@ const AppContent = () => {
                 )}
               </div>
 
-              <div className=" mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
+              <div
+                className={`mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between  ${
+                  AuctionType == "closedbid" ? "md:mt-5" : "mt-9"
+                } p-0 m-0 gap-2`}
+              >
                 <div className="relative -left-11 ms:-left-11  mr-0">
                   <Input />
                 </div>

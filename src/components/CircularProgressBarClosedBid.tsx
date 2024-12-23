@@ -99,7 +99,7 @@ export default function CircularProgressBarClosedBid({
 
         {/* Time display */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#3c0266] rotate-0  font-[700] text-[11px] mu:text-[16px] ms:text-[14px]">
+          <span className="text-[#3c0266] font-montserrat rotate-0  font-[700] text-[11px] mu:text-[16px] ms:text-[14px]">
             {progress}%
           </span>
         </div>
