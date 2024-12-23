@@ -106,8 +106,13 @@ export default function CircularProgressBar({
       </div>
 
       {/* Current Highest display */}
+      {/* <<<<<<< HEAD
       <div className="-mt-1 text-white font-montserrat text-[12px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1 font-[600]">
         ${currentHighest.toFixed(2)}
+======= */}
+      <div className="-mt-1 text-white font-montserrat text-[12px] ms:text-[14px] mu:text-[16px] mu:-mt-0 ms:-mt-1 font-[600]">
+        ${parseFloat(currentHighest.toString()).toFixed(2)}
+        {/* >>>>>>> wss */}
       </div>
     </div>
   );

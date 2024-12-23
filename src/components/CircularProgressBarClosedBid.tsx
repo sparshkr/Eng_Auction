@@ -106,8 +106,13 @@ export default function CircularProgressBarClosedBid({
       </div>
 
       {/* Current Highest display */}
+      {/* <<<<<<< HEAD
       <div className="-mt-1 text-white font-montserrat font-[600] text-[11px] ms:text-[13px] mu:text-[15px] mu:-mt-0 ms:-mt-1">
         ${currentHighest.toFixed(2)}
+======= */}
+      <div className="-mt-1 text-white font-montserrat font-[600] text-[11px] ms:text-[13px] mu:text-[15px] mu:-mt-0 ms:-mt-1">
+        ${parseFloat(currentHighest?.toString()).toFixed(2)}
+        {/* >>>>>>> wss */}
       </div>
     </div>
   );

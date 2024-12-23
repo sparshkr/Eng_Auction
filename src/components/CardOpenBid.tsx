@@ -35,13 +35,13 @@ export default function CardOpenBid({
       {/* EMD Price */}
       <div className="absolute -bottom-8 font-manrope left-9 flex flex-col text-[9px] justify-center items-center gap-0 mu:text-[13px] mu:relative mu:left-[-4.8rem] ms:left-[-4.3rem] ms:top-[0.6rem] mu:top-[0.6rem] ms:text-[12px] font-[800]">
         <div className="-mb-1">EMD Paid</div>
-        <div>${EMDprice.toFixed(2)}</div>
+        <div>${parseFloat(EMDprice.toString()).toFixed(2)}</div>
       </div>
 
       {/* Reserve Price */}
       <div className="absolute font-manrope bottom-[-1.9rem] right-3 flex flex-col text-[9px] justify-center items-center gap-0 mu:text-[13px] mu:relative mu:left-[5.8rem] ms:left-[5.5rem] mu:top-[-1.75rem] ms:text-[12px] ms:top-[-1.45rem] font-[800]">
         <div className="-mb-1">Reserve Price</div>
-        <div>${ReservePrice.toFixed(2)}</div>
+        <div>${parseFloat(ReservePrice.toString()).toFixed(2)}</div>
       </div>
     </div>
   );

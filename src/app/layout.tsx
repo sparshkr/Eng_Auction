@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Montserrat, Sora, Manrope, Inter } from "next/font/google";
 import "./globals.css";
+import { WebSocketProvider } from "@/providers/websocket";
 
 const montserrat = Montserrat({
   subsets: ["latin"], // Define the subset you need
@@ -40,7 +41,9 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${sora.variable} ${manrope.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <WebSocketProvider>
+          {children}
+        </WebSocketProvider>
       </body>
     </html>
   );
