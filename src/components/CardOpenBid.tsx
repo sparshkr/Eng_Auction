@@ -20,9 +20,9 @@ export default function CardOpenBid({
       </div>
 
       {/* Card with gradient border */}
-      <div className="relative h-full w-full bg-gradient-to-r from-blue-500 to-red-600 p-[0.1rem]    rounded-tr-[30px] rounded-br-[60px] shadow-custom2">
+      <div className="relative h-full w-full bg-gradient-to-r from-blue-500 to-red-600 p-[0.1rem]    rounded-tr-[30px] rounded-br-[60px] mu:rounded-br-[70px] shadow-custom2">
         {/* Inner container for padding */}
-        <div className="relative h-full w-full bg-white rounded-tr-[30px] rounded-br-[60px] overflow-hidden">
+        <div className="relative h-full w-full bg-white rounded-tr-[30px] rounded-br-[60px] mu:rounded-br-[70px] overflow-hidden">
           <Image
             src="/images/AirpodPro.png"
             alt="Product"
@@ -33,13 +33,13 @@ export default function CardOpenBid({
       </div>
 
       {/* EMD Price */}
-      <div className="absolute -bottom-9 font-manrope left-9 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-[-4.5rem] ms:left-[-4.3rem] ms:top-[0.6rem] mu:top-[0.6rem] ms:text-[12px] font-[800]">
+      <div className="absolute -bottom-8 font-manrope left-9 flex flex-col text-[9px] justify-center items-center gap-0 mu:text-[13px] mu:relative mu:left-[-4.8rem] ms:left-[-4.3rem] ms:top-[0.6rem] mu:top-[0.6rem] ms:text-[12px] font-[800]">
         <div className="-mb-1">EMD Paid</div>
         <div>${EMDprice.toFixed(2)}</div>
       </div>
 
       {/* Reserve Price */}
-      <div className="absolute font-manrope bottom-[-2.2rem] right-2 flex flex-col text-[10px] justify-center items-center gap-0 mu:text-[15px] mu:relative mu:left-[6rem] ms:left-[5.5rem] mu:top-[-2rem] ms:text-[12px] ms:top-[-1.45rem] font-[800]">
+      <div className="absolute font-manrope bottom-[-1.9rem] right-3 flex flex-col text-[9px] justify-center items-center gap-0 mu:text-[13px] mu:relative mu:left-[5.8rem] ms:left-[5.5rem] mu:top-[-1.75rem] ms:text-[12px] ms:top-[-1.45rem] font-[800]">
         <div className="-mb-1">Reserve Price</div>
         <div>${ReservePrice.toFixed(2)}</div>
       </div>

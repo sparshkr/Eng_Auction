@@ -107,7 +107,7 @@ const AppContent = () => {
               <div className="relative">
                 {AuctionType === "openbid" && (
                   <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                    <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-1 mu:h-[18rem] mu:w-[18rem] mu:right-1">
+                    <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-1 mu:h-[18rem] mu:w-[18rem] mu:right-3">
                       <CardOpenBid
                         ReservePrice={Reserveprice}
                         EMDprice={EMDprice}
@@ -131,7 +131,7 @@ const AppContent = () => {
                       </div>
                     </div>
 
-                    <div className="relative top-4 right-[5.5rem]">
+                    <div className="relative top-4 right-[5.9rem]">
                       <BidList />
                     </div>
                   </div>
@@ -158,7 +158,7 @@ const AppContent = () => {
               </div>
 
               <section className="-mt-1 flex flex-col gap-2 mb-2 w-full pl-2 pr-0 mu:px-5">
-                <h2 className="text-[10px] text-white mu:text-[15px] ms:text-[12px] font-sora font-[600]">
+                <h2 className="text-[10px] text-white mu:text-[13px] ms:text-[12px] font-sora font-[600]">
                   Bidders
                 </h2>
                 <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
