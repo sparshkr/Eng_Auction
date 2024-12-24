@@ -73,6 +73,7 @@ const AppContent = () => {
     const Reserveprice = auction?.reservePrice! || 500.0;
     const currentHighest = auction?.bids?.[0]?.amount || auction?.reservePrice || 1000;
     const AuctionType = auction?.bidType || "SEALED";
+    const auctionProgress = auction?.bids?.length! * 100 / auction?.maxBids! || 0;    
 
     useEffect(() => {
         // Initial Fetch
@@ -174,14 +175,14 @@ const AppContent = () => {
                                     <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:block mu:hidden">
                                         <CircularProgressBar
                                             currentHighest={currentHighest}
-                                            progress={59}
+                                            progress={auctionProgress}
                                             radius={10}
                                         />
                                     </div>
                                     <div className="absolute top-[270px] left-1/2 transform -translate-x-1/2 z-40 msx:top-[24rem] mu:top-[26rem] flex flex-col ms:hidden md:hidden">
                                         <CircularProgressBar
                                             currentHighest={currentHighest}
-                                            progress={59}
+                                            progress={auctionProgress}
                                             radius={11}
                                         />
                                     </div>
@@ -200,14 +201,14 @@ const AppContent = () => {
                                                 <div className="ms:block mu:hidden">
                                                     <CircularProgressBarClosedBid
                                                         currentHighest={currentHighest}
-                                                        progress={59}
+                                                        progress={auctionProgress}
                                                         radius={8}
                                                     />
                                                 </div>
                                                 <div className="ms:hidden md:hidden">
                                                     <CircularProgressBarClosedBid
                                                         currentHighest={currentHighest}
-                                                        progress={59}
+                                                        progress={auctionProgress}
                                                         radius={11}
                                                     />
                                                 </div>
