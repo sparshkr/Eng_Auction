@@ -19,7 +19,7 @@ interface WebSocketStore {
 }
 
 const WEBSOCKET_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3000';
-const MAX_RECONNECT_ATTEMPTS = 5;
+const MAX_RECONNECT_ATTEMPTS = 2;
 const RECONNECT_DELAY = 3000;
 
 export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
