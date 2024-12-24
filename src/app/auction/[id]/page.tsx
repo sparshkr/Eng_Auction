@@ -298,10 +298,14 @@ const AppContent = () => {
                                     />
                                     <div className="flex flex-col justify-center ">
                                         <div className="text-lg mu:text-2xl flex justify-center items-center gap-2">
-                                            <div>Bhavya</div>
+                                            <div>{user ? user.name : "Bhavya"}</div>
                                             <button>
                                                 <Image
-                                                    src={"/images/edit.png"}
+                                                    src={
+                                                        user ? `https://api.auctionx.dev/assets/avatar/${user?.id % 29}.png`
+                                                            : "/images/avatar.png"
+                                                    }
+                                                    // src={"/images/edit.png"}
                                                     alt="log"
                                                     height={50}
                                                     width={50}
@@ -317,7 +321,7 @@ const AppContent = () => {
                                                 width={10}
                                                 className="w-3 h-3 mu:w-4 mu:h-4 ms:w-3 ms:h-3"
                                             />
-                                            <div className="underline">Log out</div>
+                                            <div className="underline" onClick={handleLogout}>Log out</div>
                                         </button>
                                     </div>
                                 </div>
@@ -340,8 +344,8 @@ const AppContent = () => {
                                             <div>AUCX02</div>
                                         </div>
                                         <div className="flex flex-col border w-[50%] h-full md:text-xs mu:text-[0.85rem]  items-center py-1 md:gap-1">
-                                            <div className="text-[#B57FEC]">Player ID</div>
-                                            <div>567535724</div>
+                                            <div className="text-[#B57FEC]">User ID</div>
+                                            <div>{user ? user.id : "567535724"}</div>
                                         </div>
                                     </div>
                                     <div className="flex flex-row items-center justify-around ">
