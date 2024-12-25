@@ -86,7 +86,7 @@ const AppContent = () => {
   const Reserveprice = (auction?.reservePrice as unknown as number) || 500.0;
   const currentHighest =
     (auction?.bids?.[0]?.amount as unknown as number) || 999.98;
-  const AuctionType = auction?.bidType?.toLowerCase() || "closedbid";
+  const AuctionType = auction?.bidType?.toLowerCase() || "openbid";
 
   useEffect(() => {
     // Fetch auction details
