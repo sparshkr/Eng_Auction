@@ -21,7 +21,7 @@ import BidList from "@/components/BidList";
 import CardOpenBid from "@/components/CardOpenBid";
 import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
 import { toast, Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useWebSocketStore } from "@/websocket/service";
 import { useAuthStore } from "@/auth/service";
 import {
@@ -40,26 +40,31 @@ interface Bid {
 }
 
 export default function Home() {
+  const router = useRouter();
+  redirect('/auth/login');
   return (
-    <div className="font-[500]">
-      <Toaster position="top-right" />
-      <div className="relative md:hidden ">
-        <div className="h-screen w-screen">
-          <AuctionWebSocketProvider auctionId={147}>
-            <AppContent />
-          </AuctionWebSocketProvider>
-        </div>
-      </div>
-      <div className="hidden md:block ">
-        <PhoneFrame
-          AppContent={
-            <AuctionWebSocketProvider auctionId={147}>
-              <AppContent />
-            </AuctionWebSocketProvider>
-          }
-        />
-      </div>
-    </div>
+    <>
+      {/* JSR */}
+    </>
+    // <div className="font-[500]">
+    //   <Toaster position="top-right" />
+    //   <div className="relative md:hidden ">
+    //     <div className="h-screen w-screen">
+    //       <AuctionWebSocketProvider auctionId={147}>
+    //         <AppContent />
+    //       </AuctionWebSocketProvider>
+    //     </div>
+    //   </div>
+    //   <div className="hidden md:block ">
+    //     <PhoneFrame
+    //       AppContent={
+    //         <AuctionWebSocketProvider auctionId={147}>
+    //           <AppContent />
+    //         </AuctionWebSocketProvider>
+    //       }
+    //     />
+    //   </div>
+    // </div>
   );
 }
 
@@ -236,9 +241,8 @@ const AppContent = () => {
               </div>
 
               <div
-                className={`mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between  ${
-                  AuctionType == "closedbid" ? "md:mt-5" : "mt-9"
-                } p-0 m-0 gap-2`}
+                className={`mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between  ${AuctionType == "closedbid" ? "md:mt-5" : "mt-9"
+                  } p-0 m-0 gap-2`}
               >
                 <div className="relative -left-11 ms:-left-11  mr-0">
                   {/* <Input /> */}
@@ -255,9 +259,8 @@ const AppContent = () => {
                 {/* Connection status indicator */}
                 <div className="absolute top-2 right-2">
                   <div
-                    className={`w-2 h-2 rounded-full ${
-                      isConnected ? "bg-green-500" : "bg-red-500"
-                    }`}
+                    className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"
+                      }`}
                   />
                 </div>
 
