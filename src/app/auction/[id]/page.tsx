@@ -215,7 +215,7 @@ const AppContent = () => {
                                             </div>
                                         </div>
                                         {auction?.bids ? (
-                                            <div className="relative top-4 right-[5.9rem]">
+                                            <div className={`relative top-4 right-[5.9rem] ${auction?.bids?.length == 0 ? 'md:right-[5rem]' : ''}`}>
                                                 <BidList bids={auction?.bids} />
                                             </div>
                                         ) : (
