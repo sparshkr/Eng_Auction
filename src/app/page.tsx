@@ -20,6 +20,7 @@ import Modal2 from "@/components/Modal2";
 import BidList from "@/components/BidList";
 import CardOpenBid from "@/components/CardOpenBid";
 import CircularProgressBarClosedBid from "@/components/CircularProgressBarClosedBid";
+import EndAuctionModal from "@/components/EndAuctionModal";
 
 export default function Home() {
   return (
@@ -48,6 +49,9 @@ const AppContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const AuctionType: string = "closedbid";
   const AuctionType: string = "openbid";
+  const [isAuctionEnded, setIsAuctionEnded] = useState(false);
+  const [winnerName, setWinnerName] = useState("John Doe");
+  const [winningBid, setWinningBid] = useState(1500.0);
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -57,6 +61,14 @@ const AppContent = () => {
       (_, i) => `https://api.auctionx.dev/assets/avatar/${i + 1}.png`
     );
     setAvatarUrls(newAvatarUrls);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAuctionEnded(true);
+    }, 5000); // Auction ends after 10 seconds for demonstration
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -321,6 +333,12 @@ const AppContent = () => {
           </div>
         </div>
       </Modal2>
+      <EndAuctionModal
+        isOpen={isAuctionEnded}
+        onClose={() => setIsAuctionEnded(false)}
+        winnerName={winnerName}
+        winningBid={winningBid}
+      />
     </>
   );
 };
