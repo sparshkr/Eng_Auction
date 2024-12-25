@@ -35,12 +35,12 @@ export default function Home() {
         <AuctionWebSocketProvider auctionId={Number(auctionId)}>
             <div className="font-[500]">
                 <Toaster position="top-right" />
-                <div className="relative md:hidden ">
-                    <div className="h-screen w-screen font-manrope">
+                <div className="relative md:hidden">
+                    <div className="h-screen w-screen">
                         <AppContent />
                     </div>
                 </div>
-                <div className="hidden md:block font-manrope ">
+                <div className="hidden md:block">
                     <PhoneFrame AppContent={
                         <AppContent />
                     } />
@@ -73,7 +73,7 @@ const AppContent = () => {
     const Reserveprice = auction?.reservePrice! || 500.0;
     const currentHighest = auction?.bids?.[0]?.amount || auction?.reservePrice || 1000;
     const AuctionType = auction?.bidType || "SEALED";
-    const auctionProgress = auction?.bids?.length! * 100 / auction?.maxBids! || 0;    
+    const auctionProgress = auction?.bids?.length! * 100 / auction?.maxBids! || 0;
 
     useEffect(() => {
         // Initial Fetch
@@ -161,7 +161,7 @@ const AppContent = () => {
                                 setIsModalOpen={setIsModalOpen}
                                 setProfileSection={setProfileSection}
                             />
-                            <div className="w-full mu:mt-4 px-2 mu:px-5 ms:px-3 msx:px-2 ">
+                            <div className="w-full mu:mt-4 ms:mt-2 px-2 mu:px-5 ms:px-3 msx:px-2 ">
                                 <Details ProductName={ProductName} BasePrice={BasePrice} />
                             </div>
 
@@ -191,7 +191,7 @@ const AppContent = () => {
                             <div className="relative">
                                 {AuctionType === "OPEN" && (
                                     <div className="relative w-[130%] flex justify-between gap-6 pr-4 right-5 z-50">
-                                        <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-0 mu:h-[18rem] mu:w-[18rem] mu:right-1">
+                                        <div className="relative h-[13rem] w-[14rem] md:left-2 ms:h-[16rem] ms:w-[17rem] ms:right-1 mu:h-[18rem] mu:w-[18rem] mu:right-3">
                                             <CardOpenBid
                                                 ReservePrice={Reserveprice}
                                                 EMDprice={EMDprice}
@@ -202,7 +202,7 @@ const AppContent = () => {
                                                     <CircularProgressBarClosedBid
                                                         currentHighest={currentHighest}
                                                         progress={auctionProgress}
-                                                        radius={8}
+                                                        radius={10}
                                                     />
                                                 </div>
                                                 <div className="ms:hidden md:hidden">
@@ -214,35 +214,42 @@ const AppContent = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {
-                                            auction?.bids ?
-                                                <div className="relative top-4 right-[5.5rem]">
-                                                    <BidList bids={auction?.bids!} />
-                                                </div> : ""
-                                        }
+                                        {auction?.bids ? (
+                                            <div className="relative top-4 right-[5.9rem]">
+                                                <BidList bids={auction?.bids} />
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
                                 )}
                             </div>
 
-                            <div className=" mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between mt-9 p-0 m-0 gap-2">
-                                <div className="relative -left-10 ms:-left-11  mr-0">
+                            <div className={`mu:mt-[3rem] ms:mt-[2.8rem] flex w-full justify-between  ${AuctionType == "SEALED" ? "md:mt-5" : "mt-9"
+                                } p-0 m-0 gap-2`}
+                            >
+                                <div className="relative -left-11 ms:-left-11  mr-0">
                                     {/* <Input /> */}
                                     <form onSubmit={handleBidSubmit}>
                                         <Input
                                             value={bidAmount}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBidAmount(e.target.value)}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setBidAmount(e.target.value)
+                                            }
                                             placeholder="Enter bid amount"
                                         />
                                     </form>
                                 </div>
                                 {/* Connection status indicator */}
                                 <div className="absolute top-2 right-2">
-                                    <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'
-                                        }`} />
+                                    <div
+                                        className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"
+                                            }`}
+                                    />
                                 </div>
 
                                 <button className="relative m-0 py-0 h-6 -bottom-2 bg-[#190c3d] flex ml-0 rounded-lg pl-1 gap-1 shadow-custom mu:right-5 ms:right-2 msx:right-1 mu:h-7 mu:top-[0.6rem] mu:gap-[5px] mu:pl-4 msx:pl-5">
-                                    <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] ">
+                                    <div className="text-[#C0B5FF] text-[10px] mu:text-[12px] relative top-1 mu:right-1 mu:top-[6px] font-manrope">
                                         HINT
                                     </div>
                                     <Image
@@ -256,7 +263,9 @@ const AppContent = () => {
                             </div>
 
                             <section className="-mt-1 flex flex-col gap-2 mb-2 w-full pl-2 pr-0 mu:px-5">
-                                <h2 className="text-xs text-white mu:text-[15px]">Bidders</h2>
+                                <h2 className="text-[10px] text-white mu:text-[13px] ms:text-[12px] font-sora font-[600]">
+                                    Bidders
+                                </h2>
                                 <div className="flex gap-1 flex-wrap mb-auto justify-start text-sm">
                                     {avatarUrls.map((url, index) => (
                                         <Image
@@ -291,7 +300,10 @@ const AppContent = () => {
                             <section className=" md:mb-5 pb-5 w-[90%] mu:w-[85%] border-[0.05px] flex flex-col overflow-x-hidden items-center gap-3 rounded-xl bg-white bg-opacity-15 mu:mt-">
                                 <div className="w-[80%]  flex  items-center mt-4 gap-4">
                                     <Image
-                                        src={"/images/avatar.png"}
+                                        src={
+                                            user ? `https://api.auctionx.dev/assets/avatar/${user?.id % 29}.png`
+                                                : "/images/avatar.png"
+                                        }
                                         alt="Avatar"
                                         height={100}
                                         width={100}
@@ -302,11 +314,7 @@ const AppContent = () => {
                                             <div>{user ? user.name : "Bhavya"}</div>
                                             <button>
                                                 <Image
-                                                    src={
-                                                        user ? `https://api.auctionx.dev/assets/avatar/${user?.id % 29}.png`
-                                                            : "/images/avatar.png"
-                                                    }
-                                                    // src={"/images/edit.png"}
+                                                    src={"/images/edit.png"}
                                                     alt="log"
                                                     height={50}
                                                     width={50}
