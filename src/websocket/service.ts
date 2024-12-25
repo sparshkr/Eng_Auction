@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { toast } from 'react-hot-toast';
 import { WebSocketMessage } from '@/types/ws.types';
 import { AuctionWithDetails, Bid } from '@/types/auction.types';
+import { useAuthStore } from '@/auth/service';
 
 interface WebSocketStore {
   socket: WebSocket | null;
@@ -112,7 +113,11 @@ function handleWebSocketMessage(data: WebSocketMessage, store: WebSocketStore) {
         break;
 
       case 'AUCTION_END':
-        toast(`Auction ended! Winner: ${data.winner?.name}`, { icon: '🏆' });
+        const { user } = useAuthStore();
+        if (user?.name == data?.winner?.name)
+          toast(`Auction ended! You won`, { icon: '🏆' });
+        else
+          toast(`Auction ended! Winner: ${data.winner?.name}`, { icon: '🏆' });
         // if (data.auction) {
         //   store.onAuctionUpdate?.(data.auction);
         // }
