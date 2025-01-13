@@ -15,8 +15,18 @@ const nextConfig: NextConfig = {
       {
         protocol:"https",
         hostname:"s3-alpha-sig.figma.com"
+      },
+      {
+        protocol:"https",
+        hostname:"new-image-domain.com"
       }
     ]
+  },
+  experimental: {
+    appDir: true
+  },
+  env: {
+    CUSTOM_API_ENDPOINT: process.env.CUSTOM_API_ENDPOINT
   }
 };
 
