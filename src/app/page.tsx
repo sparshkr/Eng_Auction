@@ -47,8 +47,8 @@ const AppContent = () => {
   const Reserveprice = 500.0;
   const currentHighest = 999.98;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const AuctionType: string = "closedbid";
-  const AuctionType: string = "openbid";
+  const AuctionType: string = "closedbid";
+  // const AuctionType: string = "openbid";
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
   const [winnerName, setWinnerName] = useState("John Doe");
   const [winningBid, setWinningBid] = useState(1500.0);
@@ -66,7 +66,7 @@ const AppContent = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAuctionEnded(true);
-    }, 5000); // Auction ends after 10 seconds for demonstration
+    }, 5000); // Auction ends after 5 seconds for demonstration
 
     return () => clearTimeout(timer);
   }, []);
