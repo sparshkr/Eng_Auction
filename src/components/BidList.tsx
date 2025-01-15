@@ -41,9 +41,9 @@ const BidList = ({ bids }: InputProps) => {
             }`}
         >
           <div className="flex items-center">
-            <span className={`${bid?.bidderId == user?.id ? "font-bold" : ""}`}>
+            {/* <span className={`${bid?.bidderId == user?.id ? "font-bold" : ""}`}> */}
               ${Number(bid?.amount)}
-            </span>
+            {/* </span> */}
             <div className="absolute -right-5 ms:-right-7 mu:-right-8">
               <Image
                 src={
