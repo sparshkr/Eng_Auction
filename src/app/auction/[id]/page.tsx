@@ -28,6 +28,7 @@ import { AuctionWebSocketProvider, useAuctionWebSocket } from "@/providers/aucti
 import { AuctionWithDetails, Bid } from "@/types/auction.types";
 import { ROUTES } from "@/constants";
 import React from "react";
+import EndAuctionModal from "@/components/EndAuctionModal";
 
 export default function Home() {
     const { id: auctionId } = useParams();
@@ -75,6 +76,11 @@ const AppContent = () => {
     const AuctionType = auction?.bidType || "SEALED";
     const auctionProgress = auction?.bids?.length! * 100 / auction?.maxBids! || 0;
 
+    // const [isAuctionEnded, setIsAuctionEnded] = useState(auction?.auctionEnded);
+    const [showAuctionEndedModal, setShowAuctionEndedModal] = useState(false);
+    const [winnerName, setWinnerName] = useState(auction?.winner?.name || "John Doe");
+    const [winningBid, setWinningBid] = useState(auction?.bids[0].amount || 1500.0);
+
     useEffect(() => {
         // Initial Fetch
         const fetchAuction = async () => {
@@ -83,6 +89,7 @@ const AppContent = () => {
                 const data = await response.json();
                 setAuction(data);
                 setIsLoading(false);
+                setShowAuctionEndedModal(data?.auctionEnded);
             } catch (error) {
                 console.error('Error fetching auction:', error);
                 toast.error('Failed to load auction details');
@@ -425,6 +432,12 @@ const AppContent = () => {
                     </div>
                 </div>
             </Modal2>
+            <EndAuctionModal
+                isOpen={showAuctionEndedModal}
+                onClose={() => setShowAuctionEndedModal(false)}
+                winnerName={winnerName}
+                winningBid={winningBid}
+            />
         </>
     );
 };

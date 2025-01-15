@@ -11,7 +11,7 @@ export default {
       backdropBlur: {
         xs: '0.9px',
       },
-      
+
       screens: {
         'xs': '350px',
         mu: { max: '768px' },
@@ -27,11 +27,13 @@ export default {
       fontFamily: {
         manrope: ['Manrope', "sans-serif"],
         sora: ['Sora', 'sans-serif'],
-        montserrat: ['Montserrat','sans-serif'],
-        inter:['Inter','sans-serif']
+        montserrat: ['Montserrat', 'sans-serif'],
+        inter: ['Inter', 'sans-serif']
 
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animated'),
+  require("tailwindcss-motion")
+  ],
 } satisfies Config;
