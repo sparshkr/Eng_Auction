@@ -9,6 +9,8 @@ interface WebSocketStore {
   connected: boolean;
   connecting: boolean;
   reconnectAttempts: number;
+  currentUser: { name: string } | null;
+  setCurrentUser: (user: { name: string } | null) => void;
   connect: (token: string) => void;
   disconnect: () => void;
   onAuctionUpdate?: (auction: AuctionWithDetails) => void; // Will be called when auction updates
@@ -28,6 +30,8 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
   connected: false,
   connecting: false,
   reconnectAttempts: 0,
+  currentUser: null,
+  setCurrentUser: (user) => set({ currentUser: user }),
   // onAuctionUpdate: undefined,
   // onNewBid: undefined,
 
@@ -40,31 +44,47 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
 
   connect: (token: string) => {
     if (get().socket?.readyState === WebSocket.OPEN) return;
+    if (!token) return;
 
     set({ connecting: true });
     const ws = new WebSocket(`${WEBSOCKET_URL}?token=${token}`);
 
     ws.onopen = () => {
-      console.log('WebSocket connected');
+      // console.log('WebSocket connected');
       set({ socket: ws, connected: true, connecting: false, reconnectAttempts: 0 });
-      toast.success('Connected to auction server');
+      // toast.success('Connected to auction server');
+      if (get().reconnectAttempts > 0) {
+        toast.success('Reconnected to auction server');
+      }
     };
 
     ws.onclose = (event) => {
-      console.log('WebSocket disconnected:', event.code, event.reason);
+      // console.log('WebSocket disconnected:', event.code, event.reason);
+      const prevConnected = get().connected;
       set({ socket: null, connected: false, connecting: false });
 
-      if (get().reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-        setTimeout(() => {
-          set(state => ({ reconnectAttempts: state.reconnectAttempts + 1 }));
-          get().connect(token);
-        }, RECONNECT_DELAY * Math.pow(2, get().reconnectAttempts)); // Exponential backoff
-      } else {
-        toast.error('Connection lost. Please refresh the page.');
+      // Only attempt reconnect if previously connected and not a normal closure
+      if (prevConnected && event.code !== 1000) {
+        if (get().reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          setTimeout(() => {
+            set(state => ({ reconnectAttempts: state.reconnectAttempts + 1 }));
+            get().connect(token); // Exponential backoff
+          }, RECONNECT_DELAY * Math.pow(2, get().reconnectAttempts));
+          // if (get().reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          //   setTimeout(() => {
+          //     set(state => ({ reconnectAttempts: state.reconnectAttempts + 1 }));
+          //     get().connect(token);
+          //   }, RECONNECT_DELAY * Math.pow(2, get().reconnectAttempts)); // Exponential backoff
+        } else {
+          toast.error('Connection lost. Please refresh the page.');
+        }
       }
     };
 
     ws.onerror = (error) => {
+      // if (process.env.NODE_ENV === 'development') {
+      //   console.error('WebSocket error:', error);
+      // }
       console.error('WebSocket error:', error);
       toast.error('Connection error occurred');
     };
@@ -74,6 +94,9 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
         const data: WebSocketMessage = JSON.parse(event.data);
         handleWebSocketMessage(data, get());
       } catch (error) {
+        // if (process.env.NODE_ENV === 'development') {
+        //   console.error('Error parsing WebSocket message:', error);
+        // }
         console.error('Error parsing WebSocket message:', error);
       }
     };
@@ -89,6 +112,8 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
 }));
 
 function handleWebSocketMessage(data: WebSocketMessage, store: WebSocketStore) {
+  if (!store.currentUser) return; // Don't process messages if no user
+
   try {
     switch (data.type) {
       case 'NEW_BID':
@@ -113,8 +138,9 @@ function handleWebSocketMessage(data: WebSocketMessage, store: WebSocketStore) {
         break;
 
       case 'AUCTION_END':
-        const { user } = useAuthStore();
-        if (user?.name == data?.winner?.name)
+        const isWinner = store.currentUser?.name === data?.winner?.name;
+        // const { user } = useAuthStore();
+        if (isWinner)
           toast(`Auction ended! You won`, { icon: '🏆' });
         else
           toast(`Auction ended! Winner: ${data.winner?.name}`, { icon: '🏆' });
@@ -128,10 +154,17 @@ function handleWebSocketMessage(data: WebSocketMessage, store: WebSocketStore) {
         break;
 
       case 'DISCONNECTED':
+        // Only show if it was an unexpected disconnection
+        // if (store.connected) {
+        //   toast.error(data.message || 'Disconnected from server');
+        // }
         toast.error(data.message || 'Disconnected from server');
         break;
     }
   } catch (error) {
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.error('Error handling WebSocket message:', error);
+    // }
     console.error('Error handling WebSocket message:', error);
   }
 }

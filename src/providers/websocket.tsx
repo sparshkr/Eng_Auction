@@ -71,7 +71,8 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 
     const sendMessage = (message: WebSocketMessage) => {
         if (!socket || socket.readyState !== WebSocket.OPEN) {
-            console.error('WebSocket is not connected');
+            // Just for now
+            // console.error('WebSocket is not connected');
             toast.error('Not connected to server');
             return;
         }

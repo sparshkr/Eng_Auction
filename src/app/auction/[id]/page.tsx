@@ -74,12 +74,11 @@ const AppContent = () => {
     const Reserveprice = auction?.reservePrice! || 500.0;
     const currentHighest = auction?.bids?.[0]?.amount || auction?.reservePrice || 1000;
     const AuctionType = auction?.bidType || "SEALED";
-    const auctionProgress = auction?.bids?.length! * 100 / auction?.maxBids! || 0;
-
+    const auctionProgress = Number(((auction?.bids?.length! * 100) / auction?.maxBids! || 0).toFixed(1));
     // const [isAuctionEnded, setIsAuctionEnded] = useState(auction?.auctionEnded);
     const [showAuctionEndedModal, setShowAuctionEndedModal] = useState(false);
-    const [winnerName, setWinnerName] = useState(auction?.winner?.name || "John Doe");
-    const [winningBid, setWinningBid] = useState(auction?.bids[0].amount || 1500.0);
+    // const [winnerName, setWinnerName] = useState(auction?.winner?.name || "John Doe");
+    // const [winningBid, setWinningBid] = useState(auction?.bids[0]?.amount || 1500.0);
 
     useEffect(() => {
         // Initial Fetch
@@ -435,8 +434,8 @@ const AppContent = () => {
             <EndAuctionModal
                 isOpen={showAuctionEndedModal}
                 onClose={() => setShowAuctionEndedModal(false)}
-                winnerName={winnerName}
-                winningBid={winningBid}
+                winnerId={auction?.winnerId!}
+                winningBid={auction?.bids ? auction?.bids[0]?.amount : 0}
             />
         </>
     );

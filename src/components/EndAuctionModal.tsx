@@ -2,22 +2,55 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useAuthStore } from "@/auth/service";
+import { ROUTES } from "@/constants";
+import { User } from "@/types/auction.types";
 
 interface EndAuctionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  winnerName: string;
+  winnerId: number;
   winningBid: number;
 }
 
 const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
   isOpen,
   onClose,
-  winnerName,
+  winnerId,
   winningBid,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [winner, setWinner] = useState<User | null>(null);
+  const { user } = useAuthStore();
+
+  useEffect(() => {
+    const fetchWinner = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      try {
+        const response = await fetch(`${ROUTES.USERS.GET_BY_ID(winnerId)}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch winner details');
+        }
+
+        const winnerData = await response.json();
+        setWinner(winnerData);
+      } catch (error) {
+        console.error('Error fetching winner:', error);
+      }
+    };
+
+    if (winnerId && isOpen) {
+      fetchWinner();
+    }
+  }, [winnerId, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -45,6 +78,14 @@ const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
 
   if (!isVisible) return null;
 
+  console.log("winnerId: ", winnerId);
+  console.log("user.Id: ", user?.id);
+  console.log("winningBid: ", winningBid);
+
+  const isWinner = user?.id === winnerId;
+  const winnerIdDisplay = winner?.name || `#${winnerId}`;
+
+
   return (
     <>
       {/* Mobile Backdrop */}
@@ -61,9 +102,8 @@ const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
 
       {/* Modal */}
       <div
-        className={`absolute bottom-[75px] inset-x-0 ms:fixed ms:bottom-[109px] mu:fixed mu:bottom-[109px] z-50 flex items-end justify-center motion-safe:animate-flip-up motion-safe:transition-height duration-300 ease-in-out ${
-          isAnimating ? "h-[280px] ms:h-[250px]" : "h-0 }"
-        } ${isOpen ? "" : "overflow-hidden"}`}
+        className={`absolute bottom-[75px] inset-x-0 ms:fixed ms:bottom-[109px] mu:fixed mu:bottom-[109px] z-50 flex items-end justify-center motion-safe:animate-flip-up motion-safe:transition-height duration-300 ease-in-out ${isAnimating ? "h-[280px] ms:h-[250px]" : "h-0 }"
+          } ${isOpen ? "" : "overflow-hidden"}`}
         style={{
           // overflow: "hidden",
           transformOrigin: "top",
@@ -87,19 +127,40 @@ const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
               </button>
 
               <div className="w-full h-full flex flex-col text-sm justify-center gap-2 items-center text-white">
-                <Image
-                  src="/images/youwin.png"
-                  alt="YouWin"
-                  height={120}
-                  width={120}
-                  className="ms:w-40 mu:w-44"
-                />
-                <h2 className="font-bold text-lg text-[22px] font-sora mt-2 ms:text-[27px] mu:mb-2 mu:text-[25px]">
-                  Congratulations
-                </h2>
-                <p className="text-center md:leading-[1] font-sora text-xs font-extralight ms:text-base ms:px-4 ms:leading-[1] mu:text-[15px] mu:px-8">
-                  Fulfilment team will reach out to you on your telegram
-                </p>
+                {
+                  isWinner ? (
+                    <>
+                      <Image
+                        src="/images/youwin.png"
+                        alt="YouWin"
+                        height={120}
+                        width={120}
+                        className="ms:w-40 mu:w-44"
+                      />
+                      <h2 className="font-bold text-lg text-[22px] font-sora mt-2 ms:text-[27px] mu:mb-2 mu:text-[25px]">
+                        Congratulations🎉
+                      </h2>
+                      <p className="text-center md:leading-[1] font-sora text-xs font-extralight ms:text-base ms:px-4 ms:leading-[1] mu:text-[15px] mu:px-8">
+                        Fulfilment team will reach out to you on your telegram
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <Image
+                        src="/images/youlose.jpg"
+                        alt="YouLose"
+                        height={120}
+                        width={120}
+                        className="ms:w-40 mu:w-44"
+                      />
+                      <h2 className="font-bold text-lg text-[22px] font-sora mt-2 ms:text-[27px] mu:mb-2 mu:text-[25px]">
+                        Oops! {winnerIdDisplay} Won.
+                      </h2>
+                      <p className="text-center md:leading-[1] font-sora text-xs font-extralight ms:text-base ms:px-4 ms:leading-[1] mu:text-[15px] mu:px-8">
+                        Better Luck next time.
+                      </p>
+                    </>
+                  )}
               </div>
             </div>
           </div>

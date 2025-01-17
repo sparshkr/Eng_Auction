@@ -6,6 +6,17 @@ export const ROUTES = {
     SIGNUP: `${API_BASE_URL}/auth/signup`,
     // LOGOUT: `${API_BASE_URL}/auth/logout`,
   },
+  USERS: {
+    BASE: `${API_BASE_URL}/user`,
+    PROFILE: `${API_BASE_URL}/user/profile`,
+    GET_ALL: `${API_BASE_URL}/user`,
+    GET_BY_ID: (id: string | number) => `${API_BASE_URL}/user/${id}`,
+    UPDATE_PROFILE: `${API_BASE_URL}/user/profile`,
+    CHANGE_PASSWORD: `${API_BASE_URL}/user/change-password`,
+    FORGOT_PASSWORD: `${API_BASE_URL}/user/forgot-password`,
+    RESET_PASSWORD: `${API_BASE_URL}/user/reset-password`,
+    DELETE: (id: string | number) => `${API_BASE_URL}/user/${id}`,
+  },
   AUCTIONS: {
     BASE: `${API_BASE_URL}/auctions`,
     CREATE: `${API_BASE_URL}/auctions`,

@@ -33,7 +33,7 @@ const BidList = ({ bids }: InputProps) => {
     //             )}
     // =======
     <div className="flex flex-col justify-center items-center text-white gap-1 font-montserrat font-[500]">
-      {<span className="text-xs justify-end right-0">{bids.length==0 ? "No Bids" : ""}</span>}
+      {<span className="text-xs justify-end right-0">{bids.length == 0 ? "No Bids" : ""}</span>}
       {bids.slice(0, 9)?.map((bid, index) => (
         <div
           key={index}
@@ -42,7 +42,7 @@ const BidList = ({ bids }: InputProps) => {
         >
           <div className="flex items-center">
             {/* <span className={`${bid?.bidderId == user?.id ? "font-bold" : ""}`}> */}
-              ${Number(bid?.amount)}
+            ${Number(bid?.amount)}
             {/* </span> */}
             <div className="absolute -right-5 ms:-right-7 mu:-right-8">
               <Image

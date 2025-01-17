@@ -5,9 +5,12 @@ import Link from 'next/link';
 import { AuctionWithDetails } from '@/types/auction.types';
 import { ROUTES } from '@/constants';
 import { Toaster } from 'react-hot-toast';
+import { useWebSocketStore } from '@/websocket/service';
 
 export default function Home() {
     const { user } = useAuthStore();
+    const setCurrentUser = useWebSocketStore(state => state.setCurrentUser);
+  
     const [auctions, setAuctions] = useState<AuctionWithDetails[]>([]);
 
     useEffect(() => {
@@ -16,6 +19,10 @@ export default function Home() {
             .then(data => setAuctions(data));
     }, []);
 
+    useEffect(() => {
+        setCurrentUser(user);
+      }, [user]);
+
     return (
         <>
             <Toaster />
@@ -23,13 +30,16 @@ export default function Home() {
                 <main className="container mx-auto px-4 py-8">
                     <div className="flex justify-between items-center mb-8">
                         <h1 className="text-3xl text-gray-900 font-bold">Active Auctions</h1>
-                        {user ? (
-                            <span className='text-gray-600'>Welcome, {user.name}</span>
-                        ) : (
-                            <Link href="/auth/login" className="text-blue-500 hover:underline">
-                                Login to Bid
-                            </Link>
-                        )}
+                        {
+                        // user ?
+                            // (
+                                // <span className='text-gray-600'>Welcome, {user.name}</span>
+                            // ) : (
+                            //     <Link href="/auth/login" className="text-blue-500 hover:underline">
+                                    // Login to Bid
+                            //     </Link>
+                            // )
+                        }
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
