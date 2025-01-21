@@ -30,7 +30,7 @@ export const useWebSocketStore = create<WebSocketStore>((set, get) => ({
   connected: false,
   connecting: false,
   reconnectAttempts: 0,
-  currentUser: null,
+  currentUser: useAuthStore.getState()?.user ? useAuthStore.getState().user! : null,  // Initialize from auth store
   setCurrentUser: (user) => set({ currentUser: user }),
   // onAuctionUpdate: undefined,
   // onNewBid: undefined,
