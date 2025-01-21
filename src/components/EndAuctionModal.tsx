@@ -25,9 +25,9 @@ const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
   const { user } = useAuthStore();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    // if (!token) return;
     const fetchWinner = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return;
 
       try {
         const response = await fetch(`${ROUTES.USERS.GET_BY_ID(winnerId)}`, {
@@ -47,7 +47,7 @@ const EndAuctionModal: React.FC<EndAuctionModalProps> = ({
       }
     };
 
-    if (winnerId && isOpen) {
+    if (winnerId && isOpen && token) {
       fetchWinner();
     }
   }, [winnerId, isOpen]);

@@ -10,7 +10,6 @@ import { useWebSocketStore } from '@/websocket/service';
 export default function Home() {
     const { user } = useAuthStore();
     const setCurrentUser = useWebSocketStore(state => state.setCurrentUser);
-  
     const [auctions, setAuctions] = useState<AuctionWithDetails[]>([]);
 
     useEffect(() => {
@@ -21,7 +20,17 @@ export default function Home() {
 
     useEffect(() => {
         setCurrentUser(user);
-      }, [user]);
+    }, [user]);
+
+    const getAuctionStatus = (auction: AuctionWithDetails) => {
+        const now = new Date();
+        const startTime = new Date(auction.auctionStartTime as unknown as string);
+        const endTime = new Date(auction.auctionEndTime as unknown as string);
+        
+        if (now < startTime) return 'Coming Soon';
+        if (now > endTime || (auction.bids.length >= auction.maxBids!)) return 'Expired';
+        return 'Active';
+    };
 
     return (
         <>
@@ -31,17 +40,15 @@ export default function Home() {
                     <div className="flex justify-between items-center mb-8">
                         <h1 className="text-3xl text-gray-900 font-bold">Active Auctions</h1>
                         {
-                        // user ?
-                            // (
-                                // <span className='text-gray-600'>Welcome, {user.name}</span>
-                            // ) : (
-                            //     <Link href="/auth/login" className="text-blue-500 hover:underline">
-                                    // Login to Bid
-                            //     </Link>
-                            // )
+                            user ? (
+                                <span className='text-gray-600'>Welcome, {user.name}</span>
+                            ) : (
+                                <Link href="/auth/login" className="text-blue-500 hover:underline">
+                                    Login to Bid
+                                </Link>
+                            )
                         }
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {auctions?.map(auction => (
                             <Link
@@ -53,17 +60,32 @@ export default function Home() {
                                     <h2 className="text-xl text-gray-700 font-semibold mb-2">#{auction.id}</h2>
                                     <h2 className="text-xl text-gray-700 font-semibold mb-2">{auction.name}</h2>
                                     <p className="text-gray-600 mb-4">{auction.product.name}</p>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-green-600 font-medium">
-                                            {/* @vedant-asati Fix the type. */}
-                                            Starting: ${auction.reservePrice as unknown as number}
-                                        </span>
-                                        <span className="text-sm text-gray-500">
-                                            Bids: {auction.bids.length}
-                                        </span>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-green-600 font-medium">
+                                                Starting: ${auction.reservePrice as unknown as number}
+                                            </span>
+                                            <span className="text-sm text-gray-500">
+                                                Bids: {auction.bids.length}/{auction.maxBids}
+                                            </span>
+                                        </div>
+                                        <div className="text-sm text-gray-600">
+                                            <div>Start: {new Date(auction.auctionStartTime as unknown as string).toLocaleString()}</div>
+                                            <div>End: {new Date(auction.auctionEndTime as unknown as string).toLocaleString()}</div>
+                                        </div>
+                                        <div className="text-sm text-gray-600">
+                                            <div>Type: {auction.auctionType}</div>
+                                            <div>Win Condition: {auction.winningCondition}</div>
+                                            <div>Creator: #{auction.creatorId}</div>
+                                        </div>
+                                        <div className={`text-sm font-medium ${
+                                            getAuctionStatus(auction) === 'Active' ? 'text-green-600' :
+                                            getAuctionStatus(auction) === 'Coming Soon' ? 'text-blue-600' :
+                                            'text-red-600'
+                                        } mt-2`}>
+                                            {getAuctionStatus(auction)}
+                                        </div>
                                     </div>
-                                    {/* <h4 className='text-sm text-gray-600 mt-2'>{auction.auctionEnded ? 'Auction Ended' : 'Auction Live'}</h4> */}
-                                    <h4 className='text-sm text-gray-600 mt-2'>{new Date(auction.auctionEndTime as unknown as string) < new Date() ? 'Auction Ended' : 'Auction Live'}</h4>
                                 </div>
                             </Link>
                         ))}
